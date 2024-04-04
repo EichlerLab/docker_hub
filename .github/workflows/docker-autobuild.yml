@@ -28,7 +28,7 @@ jobs:
             IFS='/' read -ra ADDR <<< "$file"
             SOFTWARE="${ADDR[0]}"
             VERSION="${ADDR[1]}"
-            echo "${SOFTWARE}_VERSION=${VERSION}" >> $GITHUB_ENV
+            echo "${SOFTWARE}:${VERSION}" >> $GITHUB_ENV
           done
         else
           echo "CHANGED=false" >> $GITHUB_ENV
@@ -54,15 +54,4 @@ jobs:
             echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
             docker push ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}
           done
-        fi      
-
-
-        while IFS= read -r line; do
-          SOFTWARE=$(echo $line | cut -f1 -d':')
-          VERSION=$(echo $line | cut -f2 -d':')
-          IMAGE_PATH="${SOFTWARE}/${VERSION}"
-          docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH
-          echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
-          docker push ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}
-        done <<< "$(cat $GITHUB_ENV | grep ':')"
-
+        fi
