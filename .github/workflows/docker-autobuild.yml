@@ -21,11 +21,14 @@ jobs:
       id: dockerfiles
       run: |
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
-        echo "Changed Dockerfiles: $CHANGED_FILES"
+        
         if [[ ! -z "$CHANGED_FILES" ]]; then
           echo "CHANGED=true" >> $GITHUB_ENV
+          echo "Changed Dockerfiles: $CHANGED_FILES"
         else
           echo "CHANGED=false" >> $GITHUB_ENV
+          echo "No Dockerfiles changes detected."
+          exit 0
         fi
 
     - name: Log in to Docker Hub
