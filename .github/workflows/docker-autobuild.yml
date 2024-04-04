@@ -1,0 +1,53 @@
+name: Build and Push Docker Images with Version Tags
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ORG_NAME: eichlerlab
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Find changed Dockerfiles and Extract Versions
+      id: dockerfiles
+      run: |
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
+        echo "Changed Dockerfiles: $CHANGED_FILES"
+        if [[ ! -z "$CHANGED_FILES" ]]; then
+          echo "::set-output name=changed::true"
+          for file in $CHANGED_FILES; do
+            IFS='/' read -ra ADDR <<< "$file"
+            SOFTWARE="${ADDR[0]}"
+            VERSION="${ADDR[1]}"
+            echo "${SOFTWARE}:${VERSION}" >> $GITHUB_ENV
+          done
+        else
+          echo "::set-output name=changed::false"
+        fi
+
+    - name: Log in to Docker Hub
+      if: steps.dockerfiles.outputs.changed == 'true'
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USER_1 }}
+        password: ${{ secrets.DOCKER_USER_1_PASSWD }}
+
+    - name: Build and push Docker images
+      if: steps.dockerfiles.outputs.changed == 'true'
+      run: |
+        while IFS= read -r line; do
+          SOFTWARE=$(echo $line | cut -f1 -d':')
+          VERSION=$(echo $line | cut -f2 -d':')
+          IMAGE_PATH="${SOFTWARE}/${VERSION}"
+          docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH
+          echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
+          docker push ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}
+        done <<< "$(cat $GITHUB_ENV | grep ':')"
+
