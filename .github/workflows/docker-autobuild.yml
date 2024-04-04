@@ -42,14 +42,12 @@ jobs:
     - name: Build and push Docker images
       if: env.CHANGED == 'true'
       run: |
-        if [ $CHANGED = 'true' ]; then
-          for file in $CHANGED_FILES; do
-            IFS='/' read -ra ADDR <<< "$file"
-            SOFTWARE="${ADDR[0]}"
-            VERSION="${ADDR[1]}"
-            IMAGE_PATH="${SOFTWARE}/${VERSION}"
-            docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH
-            echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
-            docker push ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}
-          done
-        fi
+        for file in $CHANGED_FILES; do
+          IFS='/' read -ra ADDR <<< "$file"
+          SOFTWARE="${ADDR[0]}"
+          VERSION="${ADDR[1]}"
+          IMAGE_PATH="${SOFTWARE}/${VERSION}"
+          docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH
+          echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
+          docker push ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}
+        done
