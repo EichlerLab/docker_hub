@@ -25,6 +25,7 @@ jobs:
         echo $CHANGED_FILES
         set -e
         if [[ ! -z "$CHANGED_FILES" ]]; then
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
           echo "CHANGED=true" >> $GITHUB_ENV
           echo "Changed Dockerfiles: $CHANGED_FILES"
         else
@@ -43,8 +44,7 @@ jobs:
     - name: Build and push Docker images
       if: env.CHANGED == 'true'
       run: |
-        echo "PASS"
-        echo "$CHANGED_FILES"
+        CHANGED_FILES="${{ env.CHANGED_FILES }}"
         for file in $CHANGED_FILES; do
           IFS='/' read -ra ADDR <<< "$file"
           SOFTWARE="${ADDR[0]}"
