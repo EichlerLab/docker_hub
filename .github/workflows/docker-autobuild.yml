@@ -20,8 +20,9 @@ jobs:
     - name: Find changed Dockerfiles and Extract Versions
       id: dockerfiles
       run: |
-        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
         exit 0
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
+        
         
         if [[ ! -z "$CHANGED_FILES" ]]; then
           echo "CHANGED=true" >> $GITHUB_ENV
