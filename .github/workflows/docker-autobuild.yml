@@ -23,27 +23,40 @@ jobs:
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
         echo "Changed Dockerfiles: $CHANGED_FILES"
         if [[ ! -z "$CHANGED_FILES" ]]; then
-          echo "::set-output name=changed::true"
+          echo "CHANGED=true" >> $GITHUB_ENV
           for file in $CHANGED_FILES; do
             IFS='/' read -ra ADDR <<< "$file"
             SOFTWARE="${ADDR[0]}"
             VERSION="${ADDR[1]}"
-            echo "${SOFTWARE}:${VERSION}" >> $GITHUB_ENV
+            echo "${SOFTWARE}_VERSION=${VERSION}" >> $GITHUB_ENV
           done
         else
-          echo "::set-output name=changed::false"
+          echo "CHANGED=false" >> $GITHUB_ENV
         fi
 
     - name: Log in to Docker Hub
-      if: steps.dockerfiles.outputs.changed == 'true'
+      if: env.CHANGED == 'true'
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKER_USER_1 }}
         password: ${{ secrets.DOCKER_USER_1_PASSWD }}
 
     - name: Build and push Docker images
-      if: steps.dockerfiles.outputs.changed == 'true'
+      if: env.CHANGED == 'true'
       run: |
+        if [ $CHANGED = 'true' ]; then
+          for file in $CHANGED_FILES; do
+            IFS='/' read -ra ADDR <<< "$file"
+            SOFTWARE="${ADDR[0]}"
+            VERSION=${{ env.${SOFTWARE}_VERSION }}
+            IMAGE_PATH="${SOFTWARE}/${VERSION}"
+            docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH
+            echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
+            docker push ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}
+          done
+        fi      
+
+
         while IFS= read -r line; do
           SOFTWARE=$(echo $line | cut -f1 -d':')
           VERSION=$(echo $line | cut -f2 -d':')
