@@ -1,29 +1,24 @@
-FROM ubuntu:22.04
+FROM ubuntu:latest
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata \
-    locale \
-    && locale-gen en_US.UTF-8 \
-    && echo "Etc/UTC" > /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdata
-
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
-
-RUN apt-get install -y wget \
+RUN apt-get -qqy update --fix-missing && \
+    apt-get -qqy dist-upgrade && \
+    apt-get -qqy install --no-install-recommends ca-certificates \
     libbz2-dev \
+    libcurl4-openssl-dev \
     liblzma-dev \
+    libncurses5-dev \
+    autoconf \
+    automake \
+    bzip2 \
+    gcc \
+    g++  \
+    make \
+    wget \
     zlib1g-dev \
-    libcurl4-gnutls-dev \
-    libssl-dev \
-    build-essential
-
-RUN apt-get install -y python3 \
-    python3-pip \
     samtools \
-    bedtools \
-    && pip3 install pandas \ 
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    bedtools && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 CMD ["/bin/bash"]
 
