@@ -48,7 +48,7 @@ jobs:
           for file in $CHANGED_FILES; do
             IFS='/' read -ra ADDR <<< "$file"
             SOFTWARE="${ADDR[0]}"
-            VERSION=${{ env.${SOFTWARE}_VERSION }}
+            VERSION="${ADDR[1]}"
             IMAGE_PATH="${SOFTWARE}/${VERSION}"
             docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH
             echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
