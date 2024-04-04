@@ -24,12 +24,6 @@ jobs:
         echo "Changed Dockerfiles: $CHANGED_FILES"
         if [[ ! -z "$CHANGED_FILES" ]]; then
           echo "CHANGED=true" >> $GITHUB_ENV
-          for file in $CHANGED_FILES; do
-            IFS='/' read -ra ADDR <<< "$file"
-            SOFTWARE="${ADDR[0]}"
-            VERSION="${ADDR[1]}"
-            echo "${SOFTWARE}:${VERSION}" >> $GITHUB_ENV
-          done
         else
           echo "CHANGED=false" >> $GITHUB_ENV
         fi
