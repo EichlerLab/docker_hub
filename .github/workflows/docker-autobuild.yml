@@ -22,6 +22,7 @@ jobs:
       run: |
         set +e
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
+        echo $CHANGED_FILES
         set -e
         if [[ ! -z "$CHANGED_FILES" ]]; then
           echo "CHANGED=true" >> $GITHUB_ENV
