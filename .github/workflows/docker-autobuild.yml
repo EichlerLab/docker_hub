@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 env:
   ORG_NAME: eichlerlab
@@ -25,7 +26,7 @@ jobs:
         CHANGED_FILES_TMP=$(git diff --name-only origin/main...${{ github.sha }} | grep 'Dockerfile$')
         set -e
         CHANGED_FILES=""
-        DELETED_FILES=""
+        ADDED_FILES=""
         for CHANGED_FILE in $CHANGED_FILES_TMP; do
           if [[ ! -z $CHANGED_FILE ]]; then
             if [[ -f $CHANGED_FILE ]];then
@@ -44,6 +45,9 @@ jobs:
           echo "CHANGED=true" >> $GITHUB_ENV
           echo "Changed Dockerfiles: $CHANGED_FILES"
         fi
+        
+        find -type f | grep 'Dockerfile$' | awk -F"/" '{{ print $2, $3 }}' | while read REPO TAG;do
+          TAG_EXISTS=$(curl -s -H "Authorization: JWT ${secrets.DOCKER_USER_1_PAT}" "https://hub.docker.com/v2/repositories/${ORG}/${REPO}/tags/${TAG}/" | jq -r .name)
 
     - name: Log in to Docker Hub
       if: env.CHANGED == 'true'
