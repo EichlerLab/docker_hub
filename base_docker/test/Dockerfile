@@ -1,6 +1,5 @@
 FROM ubuntu:latest
 
-
 RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy dist-upgrade && \
     apt-get -qqy install --no-install-recommends ca-certificates \

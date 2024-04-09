@@ -44,9 +44,6 @@ jobs:
           echo "CHANGED=true" >> $GITHUB_ENV
           echo "Changed Dockerfiles: $CHANGED_FILES"
         fi
-        
-        find -type f | grep 'Dockerfile$' | awk -F"/" '{{ print $2, $3 }}' | while read REPO TAG;do
-          TAG_EXISTS=$(curl -s -H "Authorization: JWT ${secrets.DOCKER_USER_1_PAT}" "https://hub.docker.com/v2/repositories/${ORG}/${REPO}/tags/${TAG}/" | jq -r .name)
 
     - name: Log in to Docker Hub
       if: env.CHANGED == 'true'
