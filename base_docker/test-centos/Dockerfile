@@ -35,7 +35,7 @@ RUN mkdir -p /app && \
     gcc \
     gcc-c++ \
     samtools \
-    bedtools" && \
+    BEDTools" && \
 
     OTHER_PKGS="" && \
 

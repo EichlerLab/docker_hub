@@ -23,6 +23,9 @@ RUN apt-get -qqy update --fix-missing && \
 RUN mkdir -p /app && \
     SOFTWARE_LIST_FILE="/app/software.list" && \
     touch $SOFTWARE_LIST_FILE && \
+    OSID=$(grep "^ID=" /etc/os-release | cut -d"=" -f2 | sed 's/"//g') && \
+    OSNAME=$(grep "^PRETTY_NAME=" /etc/os-release | cut -d"=" -f2 | sed 's/"//g') && \
+    echo "#OS: ${OSNAME}" > $SOFTWARE_LIST_FILE && \
 
     APT_INSTALLED_PKGS="autoconf \
     make \
@@ -32,18 +35,23 @@ RUN mkdir -p /app && \
     samtools \
     bedtools" && \
 
-    for APT_PKG in $APT_INSTALLED_PKGS;do \
-        INSTALLED_VERSION=$(apt-cache policy ${APT_PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1 | sed 's/ //g');\
-        if [ ! -z "${INSTALLED_VERSION}" ];then \
-            echo "${APT_PKG}=${INSTALLED_VERSION}" >> $SOFTWARE_LIST_FILE; \
+    OTHER_PKGS="" && \
+
+    for PKG in $INSTALLED_PKGS;do \
+        if [ "${OSID}" = "ubuntu" ] || [ "${OSID}" = "debian" ]; then \
+            INSTALLED_VERSION=$(apt-cache policy ${PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1 | sed 's/ //g');\
+        elif [ "${OSID}" = "centos" ]; then \
+            INSTALLED_VERSION=$(yum list installed | grep "^${PKG}\." | awk '{print $2}' | cut -d"-" -f1 | cut -d"+" -f1); \
+        fi; \
+        if [ ! -z "${INSTALLED_VERSION}" ]; then \
+            echo "${PKG}=${INSTALLED_VERSION}" >> $SOFTWARE_LIST_FILE; \
         fi; \
     done && \
-
-    OTHER_PKGS="" && \
 
     for PKG_WITH_VERSION in $OTHER_PKGS;do \
         echo "$PKG_WITH_VERSION" >> $SOFTWARE_LIST_FILE; \
     done
+
 
 CMD ["/bin/bash"]
 
