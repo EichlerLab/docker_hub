@@ -53,4 +53,3 @@ RUN samtools --help && \
     bcftools --help && \
     bedtools --help
 
-
