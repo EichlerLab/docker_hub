@@ -41,7 +41,7 @@ RUN mkdir -p /app && \
         if [ "${OSID}" = "ubuntu" ] || [ "${OSID}" = "debian" ]; then \
             INSTALLED_VERSION=$(apt-cache policy ${PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1 | sed 's/ //g');\
         elif [ "${OSID}" = "centos" ]; then \
-            INSTALLED_VERSION=$(yum list installed | grep "^${PKG}\." | awk '{print $2}' | cut -d"-" -f1 | cut -d"+" -f1); \
+            INSTALLED_VERSION=$(yum list installed | grep "^${PKG}\." | awk '{print $2}' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1); \
         fi; \
         if [ ! -z "${INSTALLED_VERSION}" ]; then \
             echo "${PKG}=${INSTALLED_VERSION}" >> $SOFTWARE_LIST_FILE; \
