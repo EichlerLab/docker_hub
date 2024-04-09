@@ -25,7 +25,7 @@ RUN mkdir -p /app && \
     touch $SOFTWARE_LIST_FILE && \
     OSID=$(grep "^ID=" /etc/os-release | cut -d"=" -f2 | sed 's/"//g') && \
 
-    APT_INSTALLED_PKGS="autoconf \
+    INSTALLED_PKGS="autoconf \
     make \
     automake \
     gcc \
