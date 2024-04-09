@@ -24,8 +24,6 @@ RUN mkdir -p /app && \
     SOFTWARE_LIST_FILE="/app/software.list" && \
     touch $SOFTWARE_LIST_FILE && \
     OSID=$(grep "^ID=" /etc/os-release | cut -d"=" -f2 | sed 's/"//g') && \
-    OSNAME=$(grep "^PRETTY_NAME=" /etc/os-release | cut -d"=" -f2 | sed 's/"//g') && \
-    echo "#OS: ${OSNAME}" > $SOFTWARE_LIST_FILE && \
 
     APT_INSTALLED_PKGS="autoconf \
     make \
