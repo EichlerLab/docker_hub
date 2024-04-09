@@ -17,9 +17,7 @@ RUN yum -y update && \
     wget \
     zlib-devel \
     samtools \
-
-
-RUN yum -y install bedtools && \
+    BEDTools && \
     yum clean all && \
     rm -rf /var/cache/yum
 
