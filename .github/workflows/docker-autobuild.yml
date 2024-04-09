@@ -24,13 +24,14 @@ jobs:
         CHANGED_FILES_TMP=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
         set -e
         echo $CHANGED_FILES_TMP
-        for CHANGED_FILE in $CHANGED_FILES_TMP;do
-          if [[ ! -z "CHANGED_FILE "]]; then
+        CHANGED_FILES=""
+        for CHANGED_FILE in $CHANGED_FILES_TMP; do
+          if [[ ! -z $CHANGED_FILE ]]; then
             CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
           fi
         done
         echo $CHANGED_FILES
-        if [[ "$CHANGE_FILES" = ""]];then
+        if [[ -z "$CHANGED_FILES" ]]; then
           echo "CHANGED=false" >> $GITHUB_ENV
           echo "No Dockerfiles changes detected."
           exit 0
