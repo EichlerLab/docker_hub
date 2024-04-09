@@ -25,10 +25,10 @@ RUN mkdir -p /app && \
     touch $SOFTWARE_LIST_FILE && \
 
     APT_INSTALLED_PKGS="autoconf \
+    make \
     automake \
     gcc \
     g++ \
-    make \
     samtools \
     bedtools" && \
 
@@ -39,8 +39,7 @@ RUN mkdir -p /app && \
         fi; \
     done && \
 
-    OTHER_PKGS="test=1.0.0 \
-    test2=1.0.1" && \
+    OTHER_PKGS="" && \
 
     for PKG_WITH_VERSION in $OTHER_PKGS;do \
         echo "$PKG_WITH_VERSION" >> $SOFTWARE_LIST_FILE; \
