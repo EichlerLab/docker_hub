@@ -24,12 +24,13 @@ jobs:
         CHANGED_FILES_TMP=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
         set -e
         CHANGED_FILES=""
+        DELETED_FILES=""
         for CHANGED_FILE in $CHANGED_FILES_TMP; do
           if [[ ! -z $CHANGED_FILE ]]; then
             if [[ -f $CHANGED_FILE ]];then
               CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
             else
-              echo "$CHANGED_FILE has been deleted."
+              DELETED_FILES="$CHANGED_FILE $DELETED_FILES"
             fi
           fi
         done
@@ -43,12 +44,25 @@ jobs:
           echo "Changed Dockerfiles: $CHANGED_FILES"
         fi
 
+        if [[ -z "$DELETED_FILES "]]; then
+          echo "DELETED=false" >> $GITHUB_ENV
+        else
+          echo "DELETED=true" >> $GITHUB_ENV
+          echo "DELETED_FILES=$DELETED_FILES" >> $GITHUB_ENV
+          echo "Deleted Dockerfiles: $DELETED_FILES"
+        fi
+
     - name: Log in to Docker Hub
       if: env.CHANGED == 'true'
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USER_1 }}
         password: ${{ secrets.DOCKER_USER_1_PAT }}
+
+    - name: Delete Docker images
+      if: env.DELETED == 'true'
+      run: |
+        DELELETED_FILES="${{ env.DELETED_FILES}}"
 
     - name: Build and push Docker images
       if: env.CHANGED == 'true'
