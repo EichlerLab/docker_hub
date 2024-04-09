@@ -26,6 +26,8 @@ jobs:
         for CHANGED_FILE in $CHANGED_FILES;do
           if [[ ! -z "CHANGED_FILE "]]; then
             CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
+          fi
+        done
         if [[ "$CHANGE_FILES" = ""]];then
           echo "CHANGED=false" >> $GITHUB_ENV
           echo "No Dockerfiles changes detected."
