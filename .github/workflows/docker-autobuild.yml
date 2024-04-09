@@ -20,8 +20,9 @@ jobs:
     - name: Find changed Dockerfiles and Extract Versions
       id: dockerfiles
       run: |
+        git fetch origin main
         set +e
-        CHANGED_FILES_TMP=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
+        CHANGED_FILES_TMP=$(git diff --name-only origin/main...${{ github.sha }} | grep 'Dockerfile$')
         set -e
         CHANGED_FILES=""
         DELETED_FILES=""
