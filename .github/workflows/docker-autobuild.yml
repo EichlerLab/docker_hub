@@ -44,25 +44,12 @@ jobs:
           echo "Changed Dockerfiles: $CHANGED_FILES"
         fi
 
-        if [[ -z "$DELETED_FILES "]]; then
-          echo "DELETED=false" >> $GITHUB_ENV
-        else
-          echo "DELETED=true" >> $GITHUB_ENV
-          echo "DELETED_FILES=$DELETED_FILES" >> $GITHUB_ENV
-          echo "Deleted Dockerfiles: $DELETED_FILES"
-        fi
-
     - name: Log in to Docker Hub
       if: env.CHANGED == 'true'
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USER_1 }}
         password: ${{ secrets.DOCKER_USER_1_PAT }}
-
-    - name: Delete Docker images
-      if: env.DELETED == 'true'
-      run: |
-        DELELETED_FILES="${{ env.DELETED_FILES}}"
 
     - name: Build and push Docker images
       if: env.CHANGED == 'true'
