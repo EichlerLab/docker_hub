@@ -21,17 +21,19 @@ jobs:
       id: dockerfiles
       run: |
         set +e
-        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
-        echo $CHANGED_FILES
+        CHANGED_FILES_TMP=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
         set -e
-        if [[ ! -z "$CHANGED_FILES" ]]; then
-          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
-          echo "CHANGED=true" >> $GITHUB_ENV
-          echo "Changed Dockerfiles: $CHANGED_FILES"
-        else
+        for CHANGED_FILE in $CHANGED_FILES;do
+          if [[ ! -z "CHANGED_FILE "]]; then
+            CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
+        if [[ "$CHANGE_FILES" = ""]];then
           echo "CHANGED=false" >> $GITHUB_ENV
           echo "No Dockerfiles changes detected."
           exit 0
+        else
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "CHANGED=true" >> $GITHUB_ENV
+          echo "Changed Dockerfiles: $CHANGED_FILES"
         fi
 
     - name: Log in to Docker Hub
