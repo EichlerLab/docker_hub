@@ -25,7 +25,7 @@ RUN yum -y update && \
 RUN mkdir -p /app && \
     SOFTWARE_LIST_FILE="/app/software.list" && \
     touch $SOFTWARE_LIST_FILE && \
-    OSID=$(cat /etc/os-release | grep "^ID=" | cut -d"=" -f2 | sed 's/"//g') && \
+    OSID=$(grep "^ID=" /etc/os-release | cut -d"=" -f2 | sed 's/"//g') && \
 
     INSTALLED_PKGS="autoconf \
     make \
@@ -38,8 +38,8 @@ RUN mkdir -p /app && \
     OTHER_PKGS="" && \
 
     for PKG in $INSTALLED_PKGS;do \
-        if [ "${OSID}" = "ubuntu"] || [ "${OSID}" = "debian" ]; then ; \
-            INSTALLED_VERSION=$(apt-cache policy ${APT_PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1 | sed 's/ //g');\
+        if [ "${OSID}" = "ubuntu" ] || [ "${OSID}" = "debian" ]; then \
+            INSTALLED_VERSION=$(apt-cache policy ${PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1 | sed 's/ //g');\
         elif [ "${OSID}" = "centos"]; then \
             INSTALLED_VERSION=$(yum list installed ${PKG} | grep ${PKG} | awk '{print $2}' | cut -d"-" -f1 | cut -d"+" -f1); \
         fi; \
