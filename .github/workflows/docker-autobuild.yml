@@ -26,7 +26,11 @@ jobs:
         CHANGED_FILES=""
         for CHANGED_FILE in $CHANGED_FILES_TMP; do
           if [[ ! -z $CHANGED_FILE ]]; then
-            CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
+            if [[ -f $CHANGED_FILE ]];then
+              CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
+            else
+              echo "$CHANGED_FILE has been deleted."
+            fi
           fi
         done
         if [[ -z "$CHANGED_FILES" ]]; then
