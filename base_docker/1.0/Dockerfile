@@ -33,7 +33,7 @@ RUN mkdir -p /app && \
     bedtools" && \
 
     for APT_PKG in $APT_INSTALLED_PKGS;do \
-        INSTALLED_VERSION=$(apt-cache policy ${APT_PKG} | grep 'Installed' | cut -d":" -f2 | cut -d"-" -f1 | sed 's/ //g');\
+        INSTALLED_VERSION=$(apt-cache policy ${APT_PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | sed 's/ //g');\
         if [ ! -z "${INSTALLED_VERSION}" ];then \
             echo "${APT_PKG}=${INSTALLED_VERSION}" >> $SOFTWARE_LIST_FILE; \
         fi; \
