@@ -33,7 +33,7 @@ RUN mkdir -p /app && \
     samtools \
     bedtools" && \
 
-    OTHER_PKGS="test=1.xx" && \
+    OTHER_PKGS="" && \
 
     for PKG in $INSTALLED_PKGS; do \
         if [ "${OSID}" = "ubuntu" ] || [ "${OSID}" = "debian" ]; then \
