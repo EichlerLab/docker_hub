@@ -30,8 +30,6 @@ jobs:
           if [[ ! -z $CHANGED_FILE ]]; then
             if [[ -f $CHANGED_FILE ]];then
               CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
-            else
-              DELETED_FILES="$CHANGED_FILE $DELETED_FILES"
             fi
           fi
         done
