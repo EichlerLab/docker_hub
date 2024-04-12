@@ -1,0 +1,10 @@
+name: compleasm
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pandas
+  - sepp
+prefix: /opt/conda/envs/compleasm
+
