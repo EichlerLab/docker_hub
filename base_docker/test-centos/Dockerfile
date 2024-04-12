@@ -1,24 +1,26 @@
-FROM ubuntu:latest
+FROM centos:7
 
-RUN apt-get -qqy update --fix-missing && \
-    apt-get -qqy dist-upgrade && \
-    apt-get -qqy install --no-install-recommends ca-certificates \
-    libbz2-dev \
-    libcurl4-openssl-dev \
-    liblzma-dev \
-    libncurses5-dev \
+RUN yum -y update && \
+    yum -y install epel-release && \
+    yum -y groupinstall 'Development Tools' && \
+    yum -y install ca-certificates \
+    bzip2-devel \
+    libcurl-devel \
+    xz-devel \
+    ncurses-devel \
     autoconf \
     automake \
     bzip2 \
     gcc \
-    g++  \
+    gcc-c++ \
     make \
     wget \
-    zlib1g-dev \
+    zlib-devel \
     samtools \
-    bedtools && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    BEDTools && \
+    yum clean all && \
+    rm -rf /var/cache/yum
+
 
 RUN mkdir -p /app && \
     SOFTWARE_LIST_FILE="/app/software.list" && \
@@ -29,17 +31,17 @@ RUN mkdir -p /app && \
     make \
     automake \
     gcc \
-    g++ \
+    gcc-c++ \
     samtools \
-    bedtools" && \
+    BEDTools" && \
 
     OTHER_PKGS="" && \
 
-    for PKG in $INSTALLED_PKGS; do \
+    for PKG in $INSTALLED_PKGS;do \
         if [ "${OSID}" = "ubuntu" ] || [ "${OSID}" = "debian" ]; then \
-            INSTALLED_VERSION=$(apt-cache policy ${PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1 | sed 's/ //g'); \
+            INSTALLED_VERSION=$(apt-cache policy ${PKG} | grep 'Installed' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1 | sed 's/ //g');\
         elif [ "${OSID}" = "centos" ]; then \
-            INSTALLED_VERSION=$(yum list installed | grep "^${PKG}\." | awk '{print $2}' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1); \
+            INSTALLED_VERSION=$(yum list installed | grep "^${PKG}\." | awk '{print $2}' | awk -F":" '{print $NF}' | cut -d"-" -f1 | cut -d"+" -f1);\
         fi; \
         if [ ! -z "${INSTALLED_VERSION}" ]; then \
             echo "${PKG}=${INSTALLED_VERSION}" >> $SOFTWARE_LIST_FILE; \
@@ -52,4 +54,3 @@ RUN mkdir -p /app && \
 
 
 CMD ["/bin/bash"]
-
