@@ -1,0 +1,10 @@
+locityper0.14.4
+samtools=1.19.2
+htslib=1.19.1
+minimap2=2.28
+strobealign=0.13.0
+gcc=11.4.0
+tabix=1.13
+jellyfish=2.3.0
+rust=1.77.1
+
