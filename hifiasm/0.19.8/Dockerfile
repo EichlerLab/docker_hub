@@ -39,6 +39,12 @@ WORKDIR /home/hifiasm
 RUN make
 ENV PATH /home/hifiasm:$PATH
 
+# Install yak
+WORKDIR /home
+RUN git clone https://github.com/lh3/yak
+WORKDIR /home
+RUN make
+
 WORKDIR /home
 COPY Dockerfile .
 COPY software.list /app/software.list
