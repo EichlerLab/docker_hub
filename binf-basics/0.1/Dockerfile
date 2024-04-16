@@ -37,7 +37,9 @@ RUN wget https://github.com/samtools/bcftools/releases/download/${BCFTOOLS_VERSI
     rm -rf bcftools-${BCFTOOLS_VERSION}*
 
 # Install bedtools
-RUN apt-get -qqy update --fix-missing && apt-get -qqy install --no-install-recommends bedtools
+RUN apt-get -qqy update --fix-missing && apt-get -qqy install --no-install-recommends bedtools git
+
+RUN git clone https://github.com/lh3/seqtk.git && cd seqtk && make && make install
 
 # Clean up 
 RUN apt-get -qqy purge autoconf automake bzip2 gcc make wget && \
@@ -52,4 +54,5 @@ RUN apt-get -qqy purge autoconf automake bzip2 gcc make wget && \
 RUN samtools --help && \
     bcftools --help && \
     bedtools --help
+
 
