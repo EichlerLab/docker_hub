@@ -26,6 +26,7 @@ RUN apt-get update && \
     libbz2-dev \
     libssl-dev \
     liblzma-dev \
+    libcurl4-openssl-dev \
     make \
     cmake \
     autoconf \
@@ -59,8 +60,6 @@ RUN ./configure --with-htslib=/opt/htslib/htslib-1.19.1 && \
     make && \
     make install && \
     mkdir -p /home/cache
-RUN wget https://storage.googleapis.com/gcp-public-data--broad-references/hg38/v0/Homo_sapiens_assembly38.ref_cache.tar.gz
-RUN tar -xzf Homo_sapiens_assembly38.ref_cache.tar.gz
 ENV REF_PATH="/opt/samtools/samtools-1.19.2/ref/cache/%2s/%2s/%s:http://www.ebi.ac.uk/ena/cram/md5/%s"
 ENV REF_CACHE="/opt/samtools/samtools-1.19.2/ref/cache/%2s/%2s/%s"
 
