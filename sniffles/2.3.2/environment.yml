@@ -1,0 +1,8 @@
+name: sniffles
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - sniffles==2.3.2
+prefix: /opt/conda/envs/sniffles

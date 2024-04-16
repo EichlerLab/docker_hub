@@ -1,0 +1,8 @@
+name: pbsv
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pbsv==2.9.0
+prefix: /opt/conda/envs/pbsv
