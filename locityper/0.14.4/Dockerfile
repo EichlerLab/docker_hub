@@ -38,7 +38,7 @@ RUN apt-get update && \
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-ENV PATH $HOME/.cargo/env:$PATH
+ENV PATH /root/.cargo/env:$PATH
 
 # Install htslib
 WORKDIR /opt/htslib
