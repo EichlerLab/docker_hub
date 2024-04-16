@@ -42,7 +42,7 @@ ENV PATH /home/hifiasm:$PATH
 # Install yak
 WORKDIR /home
 RUN git clone https://github.com/lh3/yak
-WORKDIR /home
+WORKDIR /home/yak
 RUN make
 
 WORKDIR /home
