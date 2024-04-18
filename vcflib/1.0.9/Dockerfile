@@ -3,8 +3,6 @@ FROM ubuntu:22.04
 RUN apt-get update --fix-missing && apt-get -qqy dist-upgrade && apt-get -qqy install -f --no-install-recommends build-essential fakeroot \
         bzip2 \
         ca-certificates \
-        tabixpp \
-        pybind11 \
         cmake \
         gcc \
         g++ \
@@ -23,6 +21,8 @@ RUN apt-get update --fix-missing && apt-get -qqy dist-upgrade && apt-get -qqy in
         python3-pip \
         tabix \
         zlib1g
+
+RUN pip install pybind11[global]
 
 RUN git clone --recursive https://github.com/vcflib/vcflib.git
 
