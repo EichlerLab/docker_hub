@@ -11,3 +11,4 @@ ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/sniffles/lib/
 ENV PATH=/opt/conda/envs/sniffles/bin/:${PATH}
 
 RUN echo "source activate sniffles" > ~/.bashrc
+
