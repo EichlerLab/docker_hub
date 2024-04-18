@@ -18,29 +18,28 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Find changed Dockerfiles and Extract Versions
+    - name: Find Dockerfiles that need to be updated
       id: dockerfiles
       run: |
         set +e
-        CHANGED_FILES_TMP=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$')
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$\|environment.yml$')
         set -e
-        CHANGED_FILES=""
-        ADDED_FILES=""
-        for CHANGED_FILE in $CHANGED_FILES_TMP; do
-          if [[ ! -z $CHANGED_FILE ]]; then
-            if [[ -f $CHANGED_FILE ]];then
-              CHANGED_FILES="$CHANGED_FILE $CHANGED_FILES"
-            fi
-          fi
+        CHANGED_IMAGES=""
+        for CHANGED_FILE in $CHANGED_FILES; do
+          if [[ -f $CHANGED_FILE && $(echo $CHANGED_FILE | awk -F'/' '{print NF}') -eq 2 ]]; then
+            CHANGED_IMAGE=$(echo $CHANGED_FILE | cut -d"/" -f1-2)
+            CHANGED_IMAGES="$CHANGED_IMAGE $CHANGED_IMAGES"
+          fi    
         done
-        if [[ -z "$CHANGED_FILES" ]]; then
+        CHANGED_IMAGES=$(echo $CHANGED_IMAGES | awk '{for (i=1; i<=NF; i++) if (!seen[$i]++) printf "%s ", $i}' | sed 's/ $//g')
+        if [[ -z "$CHANGED_IMAGES" ]]; then
           echo "CHANGED=false" >> $GITHUB_ENV
-          echo "No Dockerfiles changes detected."
+          echo "No Docker image changes detected."
           exit 0
         else
-          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "CHANGED_IMAGES=$CHANGED_IMAGES" >> $GITHUB_ENV
           echo "CHANGED=true" >> $GITHUB_ENV
-          echo "Changed Dockerfiles: $CHANGED_FILES"
+          echo "Changed Docker images: $CHANGED_IMAGES"
         fi
 
     - name: Log in to Docker Hub
@@ -53,13 +52,16 @@ jobs:
     - name: Build and push Docker images
       if: env.CHANGED == 'true'
       run: |
-        CHANGED_FILES="${{ env.CHANGED_FILES }}"
-        for file in $CHANGED_FILES; do
-          IFS='/' read -ra ADDR <<< "$file"
+        CHANGED_IMAGES="${{ env.CHANGED_IMAGES }}"
+        for CHANGED_IMAGE in $CHANGED_IMAGES; do
+          IFS='/' read -ra ADDR <<< "$CHANGED_IMAGE"
           SOFTWARE="${ADDR[0]}"
           VERSION="${ADDR[1]}"
           IMAGE_PATH="${SOFTWARE}/${VERSION}"
-          docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH
+          if ! docker build -t ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION} $IMAGE_PATH;then
+            echo "Failed to build ${SOFTWARE}:${VERSION}"
+            exit 1
+          fi
           echo "Pushing ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}"
           docker push ${{ env.ORG_NAME }}/${SOFTWARE}:${VERSION}
         done
