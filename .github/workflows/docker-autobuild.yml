@@ -28,7 +28,8 @@ jobs:
         CHANGED_IMAGES=""
         for CHANGED_FILE in $CHANGED_FILES; do
           echo $CHANGED_FILE
-          if [[ -f $CHANGED_FILE && $(echo $CHANGED_FILE | awk -F'/' '{print NF}') -eq 2 ]]; then
+          echo $CHANGED_FILE | awk -F'/' '{print NF}'
+          if [[ -f "$CHANGED_FILE" && $(echo $CHANGED_FILE | awk -F'/' '{print NF}') -eq 2 ]]; then
             CHANGED_IMAGE=$(echo $CHANGED_FILE | cut -d"/" -f1-2)
             CHANGED_IMAGES="$CHANGED_IMAGE $CHANGED_IMAGES"
           fi    
