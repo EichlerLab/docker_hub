@@ -75,3 +75,5 @@ RUN mkdir -p /app && \
     for SOFTWARE_INFO in $SOFTWARE_VERSION_MANUAL;do \
         echo "$SOFTWARE_INFO" >> $SOFTWARE_LIST_FILE; \
     done
+
+

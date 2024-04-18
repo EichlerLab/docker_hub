@@ -23,6 +23,7 @@ jobs:
       run: |
         set +e
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'Dockerfile$\|environment.yml$')
+        echo $CHANGED_FILES
         set -e
         CHANGED_IMAGES=""
         for CHANGED_FILE in $CHANGED_FILES; do
@@ -41,6 +42,7 @@ jobs:
           echo "CHANGED=true" >> $GITHUB_ENV
           echo "Changed Docker images: $CHANGED_IMAGES"
         fi
+        echo $CHANGED_IMAGES
 
     - name: Log in to Docker Hub
       if: env.CHANGED == 'true'
