@@ -76,4 +76,3 @@ RUN mkdir -p /app && \
         echo "$SOFTWARE_INFO" >> $SOFTWARE_LIST_FILE; \
     done
 
-
