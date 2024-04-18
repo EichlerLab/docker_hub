@@ -33,8 +33,8 @@ jobs:
             CHANGED_IMAGES="$CHANGED_IMAGE $CHANGED_IMAGES"
           fi    
         done
-        echo $CHANGED_IMAGES
         CHANGED_IMAGES=$(echo $CHANGED_IMAGES | awk '{for (i=1; i<=NF; i++) if (!seen[$i]++) printf "%s ", $i}' | sed 's/ $//g')
+        echo $CHANGED_IMAGES
         if [[ -z "$CHANGED_IMAGES" ]]; then
           echo "CHANGED=false" >> $GITHUB_ENV
           echo "No Docker image changes detected."
