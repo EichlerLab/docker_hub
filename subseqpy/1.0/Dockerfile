@@ -1,6 +1,6 @@
 FROM centos:7
 
-MAINTAINER William T Harvey
+MAINTAINER William Harvey
 
 
 # Default build libraries

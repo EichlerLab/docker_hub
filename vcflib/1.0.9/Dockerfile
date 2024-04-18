@@ -1,9 +1,10 @@
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install -y --no-install-recommends tzdata  && apt-get install -y -f --no-install-recommends build-essential fakeroot \
+RUN apt-get update --fix-missing && apt-get -qqy dist-upgrade && apt-get install -y -f --no-install-recommends build-essential fakeroot \
         bzip2 \
         ca-certificates \
         cmake \
+        tzdata \
         gcc \
         g++ \
         git \
