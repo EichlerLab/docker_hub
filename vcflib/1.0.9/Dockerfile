@@ -9,6 +9,7 @@ RUN apt-get update --fix-missing && apt-get -qqy dist-upgrade && apt-get install
         g++ \
         git \
         libbz2-dev \
+        libcurl4-gnutls-dev \
         libcurl4-openssl-dev \
         libhts-dev \
         libjsoncpp-dev \
