@@ -32,4 +32,8 @@ RUN scl enable devtoolset-10 "git clone https://github.com/EichlerLab/subseq.git
 
 RUN pip3 install pandas
 
+RUN ln -sf python3 /usr/bin/python
+
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib"
+
+
