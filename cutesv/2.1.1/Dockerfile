@@ -40,7 +40,7 @@ RUN apt-get update && \
 
 RUN pip install cuteSV==2.1.1 \
     pysam==0.22.0 \
-    psutil=5.9.8 \
+    psutil==5.9.8 \
     scipy==1.13.0 \
     Biopython==1.83 \
     cigar==0.1.3 \
