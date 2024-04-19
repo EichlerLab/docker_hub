@@ -27,29 +27,33 @@ RUN apt-get -qqy update --fix-missing && \
                 wget \
                 xz-utils \
                 zlib1g-dev && \
-    # yak
-    wget https://github.com/lh3/yak/archive/refs/tags/v${YAK_VERSION}.tar.gz && \
-    mkdir -p /yak; tar -xzf v${YAK_VERSION}.tar.gz -C /yak --strip-component=1 && cd /yak ; \
-    make && cd / && \
-    rm -f ./v${YAK_VERSION}.tar.gz && \
-    # seqtk
-    wget https://github.com/lh3/seqtk/archive/refs/tags/v${SEQTK_VERSION}.tar.gz && \
-    mkdir -p /seqtk; tar -xzf v${SEQTK_VERSION}.tar.gz -C /seqtk --strip-component=1 && cd /seqtk ; \
-    make && cd / && \
-    rm -f ./v${SEQTK_VERSION}.tar.gz && \
-    # kraken2
-    wget https://github.com/DerrickWood/kraken2/archive/refs/tags/v${KRAKEN_VERSION}.tar.gz && \
-    mkdir -p /kraken2; tar -xzf v${KRAKEN_VERSION}.tar.gz -C /kraken2 --strip-component=1 && cd /kraken2 ; \
-    ./install_kraken2.sh /usr/bin/ && cd / && \
-    rm -f ./v${KRAKEN_VERSION}.tar.gz && \
-    # samtools
-    wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
-    mkdir -p /samtools; tar -xjf samtools-${SAMTOOLS_VERSION}.tar.bz2 -C /samtools --strip-component=1 && cd /samtools ; \
-    ./configure && make && make install && cd / && \
-    rm -f ./v${SAMTOOLS_VERSION}.tar.bz2 
+                rm -rf /var/lib/apt/lists/*
+# Install yak
+RUN git clone https://github.com/lh3/yak
+WORKDIR /opt/yak
+RUN git checkout ${YAK_VERSION} && make
+ENV PATH=/opt/yak:$PATH
 
-ENV PATH=/samtools:/kraken2:/seqtk:/yak:${PATH}
+# Install seqtk
+RUN git clone https://github.com/lh3/seqtk.git
+WORKDIR /opt/seqtk
+RUN git checkout ${SEQTK_VERSION} && make
+ENV PATH=/opt/seqtk:$PATH
 
+# Install kraken2
+RUN git clone https://github.com/DerrickWood/kraken2.git
+WORKDIR /opt/kraken2
+RUN git checkout ${KRAKEN_VERSION} && ./install_kraken2.sh .
+ENV PATH=/opt/kraken2:$PATH
+
+
+# Install samtools
+RUN git clone https://github.com/samtools/samtools.git
+WORKDIR /opt/samtools
+RUN git checkout ${SAMTOOLS_VERSION} && ./configure && make && make install
+ENV PATH=/opt/samtools:$PATH
+
+# Software info recording
 RUN mkdir -p /app && \
     SOFTWARE_LIST_FILE="/app/software.list" && \
     touch $SOFTWARE_LIST_FILE && \
