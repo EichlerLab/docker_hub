@@ -46,11 +46,12 @@ WORKDIR /opt/kraken2
 RUN git checkout "v${KRAKEN_VERSION}" && ./install_kraken2.sh .
 ENV PATH=/opt/kraken2:$PATH
 
-
 # Install samtools
-RUN git clone https://github.com/samtools/samtools.git /opt/samtools
 WORKDIR /opt/samtools
-RUN git checkout ${SAMTOOLS_VERSION} && ./configure && make && make install
+RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    tar -xjf samtools-${SAMTOOLS_VERSION}.tar.bz2 --strip-components=1 && \
+    rm samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    ./configure && make && make install
 ENV PATH=/opt/samtools:$PATH
 
 # Software info recording
