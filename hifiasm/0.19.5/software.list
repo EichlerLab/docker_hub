@@ -1,0 +1,5 @@
+hifiasm=0.19.5
+yak=0.1
+gcc=11.4.0
+tabix=1.13
+

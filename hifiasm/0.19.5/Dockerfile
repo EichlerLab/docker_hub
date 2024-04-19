@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 WORKDIR /opt
 
-ARG HIFIASM_VERSION=0.19.8
+ARG HIFIASM_VERSION=0.19.5
 
 #### Basic image utilities
 RUN apt-get update && \
@@ -36,7 +36,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install hifiasm (requiring g++ and zlib)
-RUN git clone https://github.com/chhylp123/hifiasm 
+RUN git clone https://github.com/chhylp123/hifiasm
 WORKDIR /opt/hifiasm 
 RUN git checkout ${HIFIASM_VERSION} && make
 ENV PATH /opt/hifiasm:$PATH
@@ -47,7 +47,6 @@ RUN git clone https://github.com/lh3/yak
 WORKDIR /opt/yak
 RUN make
 ENV PATH /opt/yak:$PATH
-
 
 
 WORKDIR /opt
