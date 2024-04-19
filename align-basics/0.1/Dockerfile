@@ -11,3 +11,5 @@ ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/align-basics/lib/
 ENV PATH=/opt/conda/envs/align-basics/bin/:${PATH}
 
 RUN echo "source activate align-basics" > ~/.bashrc
+
+COPY ./software.list /app/

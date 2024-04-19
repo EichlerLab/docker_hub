@@ -1,0 +1,7 @@
+seqtk=1.4-2
+samtools=1.20-0
+minimap2=2.28.0
+bwa=0.7.18-0
+pbmm2=1.13.1-0
+bedtools=2.31.1-1
+pbtk=3.1.1-0

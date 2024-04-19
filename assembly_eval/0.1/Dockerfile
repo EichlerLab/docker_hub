@@ -13,3 +13,5 @@ ENV PATH=/opt/conda/envs/assembly_eval/bin/:${PATH}
 RUN apt-get -y update && apt-get -y install file
 
 RUN echo "source activate assembly_eval" > ~/.bashrc
+
+COPY ./software.list /app/

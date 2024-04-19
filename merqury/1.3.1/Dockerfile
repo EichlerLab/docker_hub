@@ -7,6 +7,7 @@ ARG SAMTOOLS_VERSION=1.19.2
 ARG BCFTOOLS_VERSION=1.19
 ARG BEDTOOLS_VERSION=2.31.0
 ARG MERYL_VERSION=1.4.1
+ARG MERQURY_VERSION=1.3
 
 # Default build libraries
 RUN apt-get -qqy update --fix-missing && \
@@ -51,11 +52,11 @@ RUN apt-get -qqy update --fix-missing && \
 
 RUN Rscript -e "install.packages(c('argparse','scales','ggplot2'))"
 
-RUN git clone https://github.com/marbl/merqury.git
+RUN git clone https://github.com/marbl/merqury.git /opt/merqury && cd /opt/merqury && git checkout v${MERQURY_VERSION}
 
-ENV MERQURY="/merqury"
+ENV MERQURY="/opt/merqury"
 
-ENV PATH="${PATH}:/merqury"
+ENV PATH="${PATH}:/opt/merqury"
 
 
 # Clean up 
@@ -72,4 +73,4 @@ RUN samtools --help && \
     bcftools --help && \
     bedtools --help
 
-
+RUN echo -e "samtools=${SAMTOOLS_VERSION}\nbcftools=${BCFTOOLS_VERSION}\nbedtools=${BEDTOOLS_VERSION}\nmeryl=${MERYL_VERSION}\nmerqury=${MERQURY_VERSION}" > /app/software.list

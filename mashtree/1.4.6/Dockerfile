@@ -38,7 +38,7 @@ RUN cpanm --notest XML::LibXML XML::LibXML::Reader
 RUN cpanm --notest BioPerl Bio::Sketch::Mash
 
 RUN mkdir -pv $HOME/bin/build && \
-    cd $HOME/bin/build && \ 
+    cd $HOME/bin/build && \
     wget https://github.com/khowe/quicktree/archive/v2.5.tar.gz && \
     tar xvf v2.5.tar.gz && \
     cd quicktree-2.5 && \
@@ -53,4 +53,4 @@ RUN mkdir -pv $HOME/bin/build && \
 
 RUN cpanm Mashtree && mashtree --help # verify it shows usage and not an error
 
-
+RUN echo -e "mashtree=1.4.6" > /app/software.list

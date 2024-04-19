@@ -36,4 +36,4 @@ RUN ln -sf python3 /usr/bin/python
 
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib"
 
-
+RUN echo -e "subseqfa=1.0" > /app/software.list

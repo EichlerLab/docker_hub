@@ -17,3 +17,5 @@ RUN wget https://github.com/huangnengCSU/compleasm/releases/download/v0.2.6/comp
 ENV PATH=/compleasm_kit/:${PATH}
 
 RUN echo "source activate compleasm" > ~/.bashrc
+
+RUN echo "compleasm=${COMPLEASM_VERSION}" > /app/software.list
