@@ -50,7 +50,7 @@ ENV PATH=/opt/kraken2:$PATH
 # Install samtools
 RUN git clone https://github.com/samtools/samtools.git /opt/samtools
 WORKDIR /opt/samtools
-RUN git checkout "v${SAMTOOLS_VERSION}" && ./configure && make && make install
+RUN git checkout ${SAMTOOLS_VERSION} && ./configure && make && make install
 ENV PATH=/opt/samtools:$PATH
 
 # Software info recording
