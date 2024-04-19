@@ -12,5 +12,5 @@ ENV PATH=/opt/conda/envs/sniffles/bin/:${PATH}
 
 RUN echo "source activate sniffles" > ~/.bashrc
 
-RUN echo -e "sniffles=2.3.2" > /app/software.list
+RUN mkdir -p /app/ && echo -e "sniffles=2.3.2" > /app/software.list
 

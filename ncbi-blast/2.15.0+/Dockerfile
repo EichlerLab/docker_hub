@@ -26,6 +26,6 @@ RUN apt-get -qqy update --fix-missing && \
 RUN wget --no-check-certificate https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-${BLAST_VERSION}-x64-linux.tar.gz && \
     tar zxvf ncbi-blast-${BLAST_VERSION}-x64-linux.tar.gz && cd ncbi-blast-${BLAST_VERSION} && cp -rl ./bin /usr/
 
-RUN echo -e "ncbi-blast=${BLAST_VERSION}" > /app/software.list
+RUN mkdir -p /app/ && echo -e "ncbi-blast=${BLAST_VERSION}" > /app/software.list
 
 

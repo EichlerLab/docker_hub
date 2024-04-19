@@ -14,4 +14,4 @@ RUN apt-get -y update && apt-get -y install file
 
 RUN echo "source activate assembly_eval" > ~/.bashrc
 
-COPY ./software.list /app/
+COPY mkdir -p /app/ && cp ./software.list /app/

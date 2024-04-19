@@ -31,4 +31,4 @@ RUN scl enable devtoolset-10 "git clone https://github.com/EichlerLab/subseq.git
 
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib"
 
-RUN echo -e "subseqfa=1.0" > /app/software.list
+RUN mkdir -p /app/ && echo -e "subseqfa=1.0" > /app/software.list

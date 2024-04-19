@@ -35,4 +35,4 @@ RUN ldconfig
 
 ENV PATH="/usr/local/bin:${PATH}"
 
-RUN echo -e "vcflib=1.0.9" > /app/software.list
+RUN mkdir -p /app/ && echo -e "vcflib=1.0.9" > /app/software.list

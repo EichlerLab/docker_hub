@@ -53,4 +53,4 @@ RUN mkdir -pv $HOME/bin/build && \
 
 RUN cpanm Mashtree && mashtree --help # verify it shows usage and not an error
 
-RUN echo -e "mashtree=1.4.6" > /app/software.list
+RUN mkdir -p /app/ && echo -e "mashtree=1.4.6" > /app/software.list

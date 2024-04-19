@@ -14,4 +14,4 @@ ENV PATH=/opt/conda/envs/pbsv/bin/:${PATH}
 
 RUN echo "source activate pbsv" > ~/.bashrc
 
-RUN echo -e "pbsv=${PBSV_VERSION}" > /app/software.list
+RUN mkdir -p /app/ && echo -e "pbsv=${PBSV_VERSION}" > /app/software.list

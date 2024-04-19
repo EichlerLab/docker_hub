@@ -12,4 +12,4 @@ ENV PATH=/opt/conda/envs/align-basics/bin/:${PATH}
 
 RUN echo "source activate align-basics" > ~/.bashrc
 
-COPY ./software.list /app/
+COPY mkdir -p /app/ && cp ./software.list /app/

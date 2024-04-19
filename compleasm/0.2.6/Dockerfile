@@ -18,4 +18,4 @@ ENV PATH=/compleasm_kit/:${PATH}
 
 RUN echo "source activate compleasm" > ~/.bashrc
 
-RUN echo "compleasm=${COMPLEASM_VERSION}" > /app/software.list
+RUN mkdir -p /app/ && echo -e "compleasm=${COMPLEASM_VERSION}" > /app/software.list

@@ -73,4 +73,4 @@ RUN samtools --help && \
     bcftools --help && \
     bedtools --help
 
-RUN echo -e "samtools=${SAMTOOLS_VERSION}\nbcftools=${BCFTOOLS_VERSION}\nbedtools=${BEDTOOLS_VERSION}\nmeryl=${MERYL_VERSION}\nmerqury=${MERQURY_VERSION}" > /app/software.list
+RUN mkdir -p /app/ && echo -e "samtools=${SAMTOOLS_VERSION}\nbcftools=${BCFTOOLS_VERSION}\nbedtools=${BEDTOOLS_VERSION}\nmeryl=${MERYL_VERSION}\nmerqury=${MERQURY_VERSION}" > /app/software.list

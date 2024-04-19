@@ -35,7 +35,7 @@ RUN apt-get -qqy update --fix-missing && \
 
 RUN Rscript ./install_packages.R
 
-RUN echo -e "r=4.1.2" > /app/software.list
+RUN mkdir -p /app/ && echo -e "r=4.1.2" > /app/software.list
 
 
 
