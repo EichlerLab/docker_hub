@@ -1,6 +1,5 @@
 FROM continuumio/miniconda3
 
-MAINTAINER William T Harvey
 
 ARG COMPLEASM_VERSION="0.2.6"
 

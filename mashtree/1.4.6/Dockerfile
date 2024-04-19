@@ -1,6 +1,5 @@
 FROM ubuntu:22.04
 
-MAINTAINER William T Harvey
 
 # Default build libraries
 RUN apt-get -qqy update --fix-missing && \

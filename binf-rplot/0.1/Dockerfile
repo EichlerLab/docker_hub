@@ -1,6 +1,5 @@
 FROM ubuntu:22.04
 
-MAINTAINER William T Harvey
 
 ARG DEBIAN_FRONTEND=noninteractive
 
