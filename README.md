@@ -27,6 +27,7 @@ git clone https://github.com/EichlerLab/docker_hub.git
 ├── {unique_software_name}
 │   └── {version_1}
 │       └── Dockerfile
+│       └── environment.yml
 ├── .git/
 ├── .github
 │   └── workflows
@@ -37,7 +38,7 @@ git clone https://github.com/EichlerLab/docker_hub.git
 <br>
 
 ### 3. Automated Docker image builds
-- The operation process and logs of GitHub Actions after the push can be checked in the [Actions tab](https://github.com/EichlerLab/docker_hub/actions) of the repository. However, the current GitHub Action is **triggered only when changes to the Dockerfile are reflected in the main branch, and it does not operate merely by request.**
+- The operation process and logs of GitHub Actions after the push can be checked in the [Actions tab](https://github.com/EichlerLab/docker_hub/actions) of the repository. However, the current GitHub Action is **triggered only when changes to the {software}/{version}/Dockerfile or {software}/{version}/environment.yml are reflected in the main branch, and it does not operate merely by request.**
 - If the Dockerfile is successfully built, the software will be built at the address **eichlerlab/software:version** on Docker Hub, with the repository name as the software and the version as the tag according to the commands defined in the YAML file. (e.g., base_docker/latest/Dockfile -> eichlerlab/base_docker:latest)
 
 <br>
