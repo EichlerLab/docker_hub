@@ -1,5 +1,6 @@
 FROM continuumio/miniconda3
 
+MAINTAINER Eichler Lab
 
 ARG COMPLEASM_VERSION="0.2.6"
 
