@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3
 
-MAINTAINER William T Harvey
+MAINTAINER Eichler Lab
 
 COPY ./environment.yml /
 
@@ -11,3 +11,7 @@ ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/align-basics/lib/
 ENV PATH=/opt/conda/envs/align-basics/bin/:${PATH}
 
 RUN echo "source activate align-basics" > ~/.bashrc
+
+RUN mkdir -p /app/
+
+COPY ./software.list /app/

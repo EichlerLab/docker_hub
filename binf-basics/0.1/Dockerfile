@@ -1,10 +1,13 @@
 FROM ubuntu:22.04
 
-MAINTAINER William T Harvey
+MAINTAINER Eichler Lab
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SAMTOOLS_VERSION=1.19.2
 ARG BCFTOOLS_VERSION=1.19
+ARG BEDTOOLS_VERSION=2.31.0
+ARG SEQTK_VERSION=1.4
+
 
 # Default build libraries
 RUN apt-get -qqy update --fix-missing && \
@@ -22,7 +25,8 @@ RUN apt-get -qqy update --fix-missing && \
                  g++ \
                  make \
                  wget \
-                 zlib1g-dev
+                 zlib1g-dev \
+                 git
 
 # Install samtools
 RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
@@ -37,9 +41,9 @@ RUN wget https://github.com/samtools/bcftools/releases/download/${BCFTOOLS_VERSI
     rm -rf bcftools-${BCFTOOLS_VERSION}*
 
 # Install bedtools
-RUN apt-get -qqy update --fix-missing && apt-get -qqy install --no-install-recommends bedtools git
+RUN wget https://github.com/arq5x/bedtools2/releases/download/v${BEDTOOLS_VERSION}/bedtools.static && chmod 775 bedtools.static && mv bedtools.static /usr/bin/bedtools
 
-RUN git clone https://github.com/lh3/seqtk.git && cd seqtk && make && make install
+RUN git clone https://github.com/lh3/seqtk.git && cd seqtk && git checkout v${SEQTK_VERSION} && make && make install
 
 # Clean up 
 RUN apt-get -qqy purge autoconf automake bzip2 gcc make wget && \
@@ -50,9 +54,10 @@ RUN apt-get -qqy purge autoconf automake bzip2 gcc make wget && \
            /var/lib/apt/lists/* \
            /usr/share/man/?? \
            /usr/share/man/??_*
-    
+
 RUN samtools --help && \
     bcftools --help && \
     bedtools --help
 
 
+RUN mkdir -p /app/ && echo -e "samtools=${SAMTOOLS_VERSION}\nbcftools=${BCFTOOLS_VERSION}\nbedtools=${BEDTOOLS_VERSION}\nseqtk=${SEQTK_VERSION}" > /app/software.list

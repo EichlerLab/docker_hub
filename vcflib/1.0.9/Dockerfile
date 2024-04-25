@@ -34,3 +34,5 @@ RUN cp /vcflib/build/contrib/WFA2-lib/libwfa2.so.0 /lib/x86_64-linux-gnu/
 RUN ldconfig
 
 ENV PATH="/usr/local/bin:${PATH}"
+
+RUN mkdir -p /app/ && echo -e "vcflib=1.0.9" > /app/software.list

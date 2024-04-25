@@ -29,28 +29,29 @@ RUN apt-get -qqy update --fix-missing && \
                 zlib1g-dev && \
                 rm -rf /var/lib/apt/lists/*
 # Install yak
-RUN git clone https://github.com/lh3/yak
+RUN git clone https://github.com/lh3/yak /opt/yak
 WORKDIR /opt/yak
-RUN git checkout ${YAK_VERSION} && make
+RUN git checkout "v${YAK_VERSION}" && make
 ENV PATH=/opt/yak:$PATH
 
 # Install seqtk
-RUN git clone https://github.com/lh3/seqtk.git
+RUN git clone https://github.com/lh3/seqtk.git /opt/seqtk
 WORKDIR /opt/seqtk
-RUN git checkout ${SEQTK_VERSION} && make
+RUN git checkout "v${SEQTK_VERSION}" && make
 ENV PATH=/opt/seqtk:$PATH
 
 # Install kraken2
-RUN git clone https://github.com/DerrickWood/kraken2.git
+RUN git clone https://github.com/DerrickWood/kraken2.git /opt/kraken2
 WORKDIR /opt/kraken2
-RUN git checkout ${KRAKEN_VERSION} && ./install_kraken2.sh .
+RUN git checkout "v${KRAKEN_VERSION}" && ./install_kraken2.sh .
 ENV PATH=/opt/kraken2:$PATH
 
-
 # Install samtools
-RUN git clone https://github.com/samtools/samtools.git
 WORKDIR /opt/samtools
-RUN git checkout ${SAMTOOLS_VERSION} && ./configure && make && make install
+RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    tar -xjf samtools-${SAMTOOLS_VERSION}.tar.bz2 --strip-components=1 && \
+    rm samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    ./configure && make && make install
 ENV PATH=/opt/samtools:$PATH
 
 # Software info recording

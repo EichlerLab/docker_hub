@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 MAINTAINER William T Harvey
 
+ARG BLAST_VERSION=2.15.0+
 
 # Default build libraries
 RUN apt-get -qqy update --fix-missing && \
@@ -22,7 +23,9 @@ RUN apt-get -qqy update --fix-missing && \
                  zlib1g-dev # buildkit
 
 
-RUN wget --no-check-certificate https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.15.0+-x64-linux.tar.gz && \ 
-        tar zxvf ncbi-blast-2.15.0+-x64-linux.tar.gz && cd ncbi-blast-2.15.0+ && cp -rl ./bin /usr/
+RUN wget --no-check-certificate https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-${BLAST_VERSION}-x64-linux.tar.gz && \
+    tar zxvf ncbi-blast-${BLAST_VERSION}-x64-linux.tar.gz && cd ncbi-blast-${BLAST_VERSION} && cp -rl ./bin /usr/
+
+RUN mkdir -p /app/ && echo -e "ncbi-blast=${BLAST_VERSION}" > /app/software.list
 
 

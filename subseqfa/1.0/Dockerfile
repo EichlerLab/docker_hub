@@ -30,3 +30,5 @@ RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19
 RUN scl enable devtoolset-10 "git clone https://github.com/EichlerLab/subseq.git && cd subseq && git checkout docker && make clean && make bin/subseqfa && cp bin/subseqfa /usr/bin/"
 
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib"
+
+RUN mkdir -p /app/ && echo -e "subseqfa=1.0" > /app/software.list

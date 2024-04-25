@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-MAINTAINER William T Harvey
+MAINTAINER Eichler Lab
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -34,6 +34,8 @@ RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy install r-base r-base-dev default-jre
 
 RUN Rscript ./install_packages.R
+
+RUN mkdir -p /app/ && echo -e "r=4.1.2" > /app/software.list
 
 
 

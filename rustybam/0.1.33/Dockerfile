@@ -34,3 +34,4 @@ RUN cp /root/.cargo/bin/* /usr/bin/
 
 RUN rustybam --help && rb --help
 
+RUN mkdir -p /app/ && echo -e "rustybam=${RB_VERSION}" > /app/software.list

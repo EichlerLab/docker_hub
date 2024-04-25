@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3
 
-MAINTAINER William T Harvey
+MAINTAINER Eichler Lab
 
 ARG COMPLEASM_VERSION="0.2.6"
 
@@ -17,3 +17,5 @@ RUN wget https://github.com/huangnengCSU/compleasm/releases/download/v0.2.6/comp
 ENV PATH=/compleasm_kit/:${PATH}
 
 RUN echo "source activate compleasm" > ~/.bashrc
+
+RUN mkdir -p /app/ && echo -e "compleasm=${COMPLEASM_VERSION}" > /app/software.list
