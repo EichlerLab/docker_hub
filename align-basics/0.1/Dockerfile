@@ -1,5 +1,7 @@
 FROM continuumio/miniconda3
 
+MAINTAINER Eichler Lab
+
 COPY ./environment.yml /
 
 RUN conda env create -f /environment.yml && conda clean -a
