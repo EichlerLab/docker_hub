@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 
+MAINTAINER Eichler Lab
 
 # Default build libraries
 RUN apt-get -qqy update --fix-missing && \
