@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 
+MAINTAINER Eichler Lab
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SAMTOOLS_VERSION=1.19.2
