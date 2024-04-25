@@ -60,4 +60,4 @@ RUN samtools --help && \
     bedtools --help
 
 
-COPY mkdir -p /app/ && echo -e "samtools=${SAMTOOLS_VERSION}\nbcftools=${BCFTOOLS_VERSION}\nbedtools=${BEDTOOLS_VERSION}\nseqtk=${SEQTK_VERSION}" > /app/software.list
+RUN mkdir -p /app/ && echo -e "samtools=${SAMTOOLS_VERSION}\nbcftools=${BCFTOOLS_VERSION}\nbedtools=${BEDTOOLS_VERSION}\nseqtk=${SEQTK_VERSION}" > /app/software.list
