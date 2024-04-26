@@ -1,0 +1,15 @@
+name: cen_align
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - seqtk
+  - samtools
+  - minimap2
+  - bwa
+  - pbmm2
+  - bedtools
+  - pbtk
+  - winnowmap
+prefix: /opt/conda/envs/cen_align
