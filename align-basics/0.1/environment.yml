@@ -11,4 +11,5 @@ dependencies:
   - pbmm2
   - bedtools
   - pbtk
+  - winnowmap
 prefix: /opt/conda/envs/align-basics
