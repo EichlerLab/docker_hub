@@ -25,6 +25,7 @@ RUN apt-get -qqy update --fix-missing && \
                 git \
                 make \
                 wget \
+                rsync \
                 xz-utils \
                 zlib1g-dev && \
                 rm -rf /var/lib/apt/lists/*
