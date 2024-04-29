@@ -1,0 +1,8 @@
+name: vbi
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - verifybamid2
+prefix: /opt/conda/envs/vbi
