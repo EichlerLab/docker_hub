@@ -1,0 +1,9 @@
+name: pod5
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pip:
+    - pod5
+prefix: /opt/conda/envs/pod5
