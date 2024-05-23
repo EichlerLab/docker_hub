@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG YAK_VERSION=0.1
+ARG YAK_VERSION=f389bad
 ARG SEQTK_VERSION=1.4
 ARG KRAKEN_VERSION=2.1.3
 ARG SAMTOOLS_VERSION=1.20
@@ -32,7 +32,8 @@ RUN apt-get -qqy update --fix-missing && \
 # Install yak
 RUN git clone https://github.com/lh3/yak /opt/yak
 WORKDIR /opt/yak
-RUN git checkout "v${YAK_VERSION}" && make
+RUN COMMIT_HASH=$(git log | grep f389bad | cut -d" " -f2) && \
+    git checkout "${COMMIT_HASH}" && make
 ENV PATH=/opt/yak:$PATH
 
 # Install seqtk
