@@ -85,7 +85,7 @@ WORKDIR /home
 # Install locityper
 RUN git clone https://github.com/tprodanov/locityper
 WORKDIR /home/locityper
-RUN git checkout 0.15.2
+RUN git checkout v0.15.2
 RUN git clone https://github.com/smarco/WFA2-lib WFA2
 RUN /root/.cargo/bin/cargo build --release && \
     /root/.cargo/bin/cargo install --path .
