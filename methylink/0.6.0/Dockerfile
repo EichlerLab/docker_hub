@@ -9,6 +9,7 @@ RUN apt-get update && \
     git \
     build-essential \
     zlib1g-dev \
+    libcurl4-openssl-dev \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
