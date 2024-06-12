@@ -1,15 +1,26 @@
+FROM ubuntu:22.04
 FROM continuumio/miniconda3
 
 ARG METHYLINK_VERSION=0.6.0
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    wget \
-    curl \
-    git \
-    build-essential \
-    zlib1g-dev \
+# Default build libraries
+RUN apt-get -qqy update --fix-missing && \
+    apt-get -qqy dist-upgrade && \
+    apt-get -qqy install --no-install-recommends \
+    ca-certificates \
+    libbz2-dev \
     libcurl4-openssl-dev \
+    liblzma-dev \
+    libncurses5-dev \
+    autoconf \
+    automake \
+    bzip2 \
+    gcc \
+    g++ \
+    make \
+    wget \
+    zlib1g-dev \
+    git /
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -25,6 +36,4 @@ RUN ./configure --enable-libcurl && \
 # Install methylink
 WORKDIR /home
 RUN pip install methylink==$METHYLINK_VERSION
-
-ENV PATH /home/:$PATH
 
