@@ -27,6 +27,4 @@ RUN ./configure --enable-libcurl && \
 RUN pip install methylink==$METHYLINK_VERSION
 
 ENV PATH /home/:$PATH
-COPY Dockerfile .
-COPY software.list /app/software.list
 
