@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-MAINTAINER William T Harvey
+LABEL Youngjun Kwon
 
 ARG RB_VERSION="0.1.24"
 
@@ -21,17 +21,14 @@ RUN apt-get -qqy update --fix-missing && \
                  g++ \
                  make \
                  wget \
-                 cargo \
                  zlib1g-dev # buildkit
 
+RUN wget https://github.com/mrvollger/rustybam/releases/download/v${RB_VERSION}/rustybam_v${RB_VERSION}-x86_64-unknown-linux-musl.tar.gz && \
+    mkdir -p /opt/rustybam && \
+    tar -xzf rustybam_v${RB_VERSION}-x86_64-unknown-linux-musl.tar.gz -C /opt/rustybam && \
+    rm -f rustybam_v${RB_VERSION}-x86_64-unknown-linux-musl.tar.gz
 
-
-RUN cargo install --version ${RB_VERSION} rustybam
-
-RUN cp /root/.cargo/bin/* /usr/bin/
-
-#RUN /bin/ls ~/.cargo/bin
-
-RUN rustybam --help && rb --help
+ENV PATH=/opt/rustybam:$PATH
 
 RUN mkdir -p /app/ && echo -e "rustybam=${RB_VERSION}" > /app/software.list
+
