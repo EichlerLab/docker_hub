@@ -20,7 +20,7 @@ RUN apt-get -qqy update --fix-missing && \
     make \
     wget \
     zlib1g-dev \
-    git /
+    git \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
