@@ -2,8 +2,6 @@ FROM continuumio/miniconda3
 
 ARG METHYLINK_VERSION=0.6.0
 
-WORKDIR /home
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     wget \
@@ -24,6 +22,7 @@ RUN ./configure --enable-libcurl && \
     make 
 
 # Install methylink
+WORKDIR /home
 RUN pip install methylink==$METHYLINK_VERSION
 
 ENV PATH /home/:$PATH
