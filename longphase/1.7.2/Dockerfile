@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 # basic stuff
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    ca-certificates git g++ gcc autoconf make zlib1g-dev libbz2-dev liblzma-dev && \
+    ca-certificates git g++ gcc autoconf automake make zlib1g-dev libbz2-dev liblzma-dev && \
     rm -rf /var/lib/apt/lists/*
 
 
