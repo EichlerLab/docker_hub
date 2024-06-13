@@ -1,4 +1,3 @@
-FROM ubuntu:22.04
 FROM continuumio/miniconda3
 
 ARG METHYLINK_VERSION=0.6.0
@@ -26,12 +25,15 @@ RUN apt-get -qqy update --fix-missing && \
 
 # Install htslib
 WORKDIR /opt/htslib
-RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19.1.tar.bz2 && \
+RUN wget --tries=5  https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19.1.tar.bz2 && \
     tar -xvf htslib-1.19.1.tar.bz2 && \
     rm -rf htslib-1.19.1.tar.bz2
 WORKDIR /opt/htslib/htslib-1.19.1 
 RUN ./configure --enable-libcurl && \
-    make 
+    make && \
+    make install
+
+ENV PATH /opt/htslib/htslib-1.19.1/bin:$PATH
 
 # Install methylink
 WORKDIR /home
