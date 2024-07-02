@@ -38,6 +38,5 @@ ENV PATH /opt/htslib/htslib-1.19.1/bin:$PATH
 # Install methylink
 WORKDIR /home
 RUN pip install methylink==$METHYLINK_VERSION
-RUN cat patch.list | while read PATCH PATH;do  cp $PATCH $PATH; done && \
-    mkdir /app && \
-    cp software.list /app/
+COPY patch/append_mod_tags.py /opt/conda/lib/python3.12/site-packages/methylink/append_mod_tags.py
+COPY software.list /app/
