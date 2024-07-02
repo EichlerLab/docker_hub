@@ -68,18 +68,17 @@ class AppendModTags:
         """
         Write out merged bam with Mm tags and possibly Ml, and its index.
         """
-        appended_tags = pysam.AlignmentFile(out_file, "wb", template=aln_obj)
-        for read in aln_obj.fetch(until_eof=True):
-            result = crud.select_one(qname=str(read.qname), db=self.db)
-            if result:
-                deserialized_tag = pickle.loads(result[0])
-                read.set_tags(read.get_tags() + deserialized_tag)
-            else:
-                pass
-            appended_tags.write(read)
+        with pysam.AlignmentFile(out_file, "wb", template=aln_obj) as appended_tags:
+            for read in aln_obj.fetch(until_eof=True):
+                result = crud.select_one(qname=str(read.qname), db=self.db)
+                if result:
+                    deserialized_tag = pickle.loads(result[0])
+                    read.set_tags(read.get_tags() + deserialized_tag)
+                else:
+                    pass
+                appended_tags.write(read)
 
         LOG.info(f"File written to: {out_file}")
-        appended_tags.close()
 
         # write index
         pysam.index(out_file)
@@ -96,11 +95,9 @@ class AppendModTags:
                 LOG.warning(f"{f} not found.")
 
     def run_pool(self, chunked_aln_fp: str, outfile: str) -> None:
-        chunked_aln_obj = pysam.AlignmentFile(chunked_aln_fp, "rb")
+        with pysam.AlignmentFile(chunked_aln_fp, "rb") as chunked_aln_obj:
 
-        self.write_linked_tags(aln_obj=chunked_aln_obj, out_file=outfile)
-
-        chunked_aln_obj.close()
+            self.write_linked_tags(aln_obj=chunked_aln_obj, out_file=outfile)
 
         # wait for the file to become available
         while not os.path.exists(outfile):
