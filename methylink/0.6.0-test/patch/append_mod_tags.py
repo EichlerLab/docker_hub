@@ -53,7 +53,6 @@ class AppendModTags:
                     qname=str(qname), tag=sqlite3.Binary(serialized_list), db=self.db
                 )
 
-        modified_obj.close()
         LOG.info(f"Base modification tags fetched for {modified_obj.filename.decode()}")
 
     def collect_tags(self, methyl_collection: list) -> None:
@@ -61,8 +60,8 @@ class AppendModTags:
         Collect optional tags from ONT bam with methyl calls
         """
         for bam in methyl_collection:
-            methyl_bam = pysam.AlignmentFile(bam, "rb", check_sq=False)
-            self.fetch_modified_bases(modified_obj=methyl_bam)
+            with pysam.AlignmentFile(bam, "rb", check_sq=False) as methyl_bam:
+                self.fetch_modified_bases(modified_obj=methyl_bam)
 
     def write_linked_tags(self, aln_obj, out_file) -> None:
         """
@@ -159,13 +158,12 @@ class ScatterGather:
             pysam.AlignmentFile(x, check_sq=False) for x in linked_bam_output_fp
         ]
 
-        out_bam = pysam.AlignmentFile(self.output, "wb", template=aln_bams[0])
-        for bam in aln_bams:
-            for records in bam:
-                out_bam.write(records)
-            bam.close()
+        with pysam.AlignmentFile(self.output, "wb", template=aln_bams[0]) as out_bam:
+            for bam in aln_bams:
+                for records in bam:
+                    out_bam.write(records)
+                bam.close()
 
-        out_bam.close()
         pysam.index(self.output)
 
     def clean_up_tempdir(self):
