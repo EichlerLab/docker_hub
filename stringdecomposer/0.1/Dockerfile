@@ -11,17 +11,18 @@ yum install -y wget bzip2 gcc gcc-c++ && \
 yum clean all && rm -rf /var/cache/yum
 
 # Get miniconda 4.8.3
-RUN mkdir -p /opt/conda/envs/miniconda_4_8_3 && \
-wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-Linux-x86_64.sh -O /opt/conda/envs/miniconda_4_8_3/miniconda.sh && \
-bash /opt/conda/envs/miniconda_4_8_3/miniconda.sh -b -u -p /opt/conda/envs/miniconda_4_8_3
+RUN mkdir -p /opt/conda && \
+wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-Linux-x86_64.sh -O /opt/conda/miniconda.sh && \
+bash /opt/conda/miniconda.sh -b -u -p /opt/conda
 
 # Copy into image
 COPY environment.yml /
 COPY stringdecomposer /opt/stringdecomposer
 
-ENV PATH=/opt/conda/envs/miniconda_4_8_3/bin/:/opt/stringdecomposer/bin/:${PATH}
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/envs/miniconda_4_8_3/lib/
+# Creates /opt/conda/envs/miniconda_4_8_3
+RUN /opt/conda/bin/conda env create -f /environment.yml && /opt/conda/bin/conda clean -a
 
-RUN conda env create -f /environment.yml && conda clean -a
+ENV PATH=/opt/conda/envs/miniconda_4_8_3/bin/:/opt/stringdecomposer/bin/:${PATH}
+ENV LD_LIBRARY_PATH=/opt/conda/envs/miniconda_4_8_3/lib/:${LD_LIBRARY_PATH}
 
 RUN echo "source activate miniconda_4_8_3" > ~/.bashrc
