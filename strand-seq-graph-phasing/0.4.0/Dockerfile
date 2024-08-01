@@ -1,4 +1,4 @@
-From: continuumio/miniconda3:4.10.3
+FROM continuumio/miniconda3:4.10.3
 
 %files
 env_Renv2.yaml /env_Renv2.yaml
