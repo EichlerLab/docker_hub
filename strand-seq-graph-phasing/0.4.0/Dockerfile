@@ -1,4 +1,3 @@
-Bootstrap: docker
 From: continuumio/miniconda3:4.10.3
 
 %files
