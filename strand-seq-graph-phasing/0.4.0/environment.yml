@@ -1,4 +1,7 @@
 name: env_Renv2
+channels:
+    - conda-forge
+    - bioconda
 dependencies:
     - pip
     - liblapack
