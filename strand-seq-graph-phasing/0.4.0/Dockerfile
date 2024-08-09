@@ -1,28 +1,22 @@
 FROM continuumio/miniconda3:4.10.3
 
-%files
-env_Renv2.yaml /env_Renv2.yaml
+MAINTAINER Eichler Lab
 
-%environment
-export PATH="/opt/conda/bin:/usr/local/bin:/usr/bin:/bin:"
-unset CONDA_DEFAULT_ENV
-export ANACONDA_HOME=/opt/conda
-export SINGULARITY_SHELL=/bin/bash
-export LC_ALL=C
+COPY ./environment.yml /
 
-%post
-export PATH=/opt/conda/bin:$PATH
-conda config --add channels bioconda
-conda config --add channels conda-forge
-#conda config --add channels r
-conda install --yes mamba=0.22.1 pip
+RUN conda env create -f /environment.yml && conda clean -a
 
-mamba env update --quiet -f /env_Renv2.yaml -n base
-
-conda clean --index-cache --tarballs --packages --yes
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/strand-seq-graph-phasing/lib/
 
 
-%labels
-AUTHOR Peter Ebert
-CONDA v4.10.3
-MAMBA v0.22.1
+ENV PATH=/opt/conda/envs/strand-seq-graph-phasing/bin/:${PATH}
+
+RUN echo "source activate align-basics" > ~/.bashrc
+
+RUN mkdir -p /app/
+
+#COPY ./software.list /app/
+
+#RUN PATH="/opt/conda/bin:/usr/local/bin:/usr/bin:/bin:"
+
+#RUN PATH=/opt/conda/bin:$PATH
