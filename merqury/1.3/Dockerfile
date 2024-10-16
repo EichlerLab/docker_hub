@@ -28,6 +28,7 @@ RUN apt-get -qqy update --fix-missing && \
                  xz-utils \
                  zlib1g-dev
 
+
 # Install samtools
 RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
     tar xjf samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
