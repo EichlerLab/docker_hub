@@ -13,3 +13,5 @@ RUN echo "source activate audano-curve" > ~/.bashrc
 RUN mkdir -p /app/
 
 COPY ./Dockerfile /
+
+COPY ./environment.yml /
