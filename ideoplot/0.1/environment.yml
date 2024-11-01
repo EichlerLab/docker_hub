@@ -7,6 +7,7 @@ dependencies:
   - pandas
   - pybedtools
   - bedtools
-  - numpy
-  - matplotlib
+  - numexpr
+  - numpy=1.22.4
+  - matplotlib=3.6.0
 prefix: /opt/conda/envs/ideoplot
