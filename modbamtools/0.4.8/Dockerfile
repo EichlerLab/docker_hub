@@ -19,6 +19,16 @@ RUN apt-get -qqy update --fix-missing && \
                  wget \
                  cargo \
                  git \
-                 zlib1g-dev # buildkit
+                 zlib1g-dev \
+                 libx11-6 \
+                 libxext6 \
+                 libxrender1 \
+                 libxtst6 \
+                 libxi6 \
+                 tk \
+                 libtk8.6 \
+                 python3-tk \
+                 && apt-get clean
 
 RUN pip install --no-cache-dir modbamtools
+CMD ["bash"]
