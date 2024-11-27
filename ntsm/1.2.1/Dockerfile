@@ -1,4 +1,4 @@
-FROM continuumio/miniconda4
+FROM continuumio/miniconda3
 
 LABEL maintainer="YOUNGJUN KWON"
 
