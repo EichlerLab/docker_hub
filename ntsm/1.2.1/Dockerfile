@@ -33,5 +33,5 @@ RUN git clone https://github.com/JustinChu/ntsm.git /opt/ntsm
 WORKDIR /opt/ntsm
 RUN ./autogen.sh
 RUN ./configure && make
-ENV PATH=/opt/ntsm:$PATH
+ENV PATH=/opt/ntsm:/opt/ntsm/src:$PATH
 RUN mkdir -p /app/ && echo -e "ntsm=${NTSM_VERSION}" > /app/software.list
