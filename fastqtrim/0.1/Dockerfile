@@ -24,6 +24,8 @@ RUN apt-get -qqy update --fix-missing && \
                 wget \
                 rsync \
                 xz-utils \
+                libisal-dev \
+                libdeflate-dev \
                 zlib1g-dev && \
                 rm -rf /var/lib/apt/lists/*
 # Install fastplong
