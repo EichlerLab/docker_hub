@@ -40,9 +40,9 @@ WORKDIR /opt/samtools
 RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
     tar -xjf samtools-${SAMTOOLS_VERSION}.tar.bz2 --strip-components=1 && \
     rm samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
-    ./configure && make && make install
+    ./configure --prefix=/opt/samtools && make && make install
 ENV PATH=/opt/samtools:$PATH
-RUN samtools
+RUN samtools --help
 
 # Software info recording
 RUN mkdir -p /app && \
