@@ -6,9 +6,10 @@ RUN apt-get -qqy update --fix-missing && \
                 ca-certificates \
     autoconf \
     automake \
-    wget \
-    unzip && \ 
-    xvfb  
+    wget && \
+    unzip  \  
+
+RUN apt-get install --fix-missing -y xvfb  
 
 RUN mkdir -p /igv && \
     cd /igv && \
