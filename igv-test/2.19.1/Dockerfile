@@ -1,5 +1,5 @@
 FROM continuumio/miniconda3
-
+FROM eclipse-temurin:17
 MAINTAINER Eichler Lab
 
 RUN apt-get  update --fix-missing && \
@@ -26,6 +26,6 @@ RUN cd /usr/bin && \
 
 RUN apt-get update && apt-get install -y libnss-sss && apt-get clean all
 
-FROM eclipse-temurin:17
+#FROM eclipse-temurin:17
 
 #FROM openjdk:17-jdk-slim
