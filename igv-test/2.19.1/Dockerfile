@@ -19,7 +19,8 @@ RUN mkdir -p /igv && \
 
 RUN cd /igv && \
     unzip IGV_2.19.1.zip && \
-    cd IGV_2.19.1
+    cd IGV_2.19.1 && \
+    sed -i 's/java --module-path/xvfb-run --auto-servernum --server-num=1 java -showversion --module-path/g' igv.sh
 
 RUN cd /usr/bin && \
     ln -s /igv/IGV_2.19.1/igv.sh ./igv
