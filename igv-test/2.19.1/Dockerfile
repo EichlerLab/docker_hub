@@ -17,7 +17,8 @@ RUN mkdir -p /igv && \
     cd /igv && \
     wget http://data.broadinstitute.org/igv/projects/downloads/2.19/IGV_2.19.1.zip
 
-RUN unzip IGV_2.19.1.zip && \
+RUN cd /igv && \
+    unzip IGV_2.19.1.zip && \
     cd IGV_2.19.1
 
 RUN cd /usr/bin && \
