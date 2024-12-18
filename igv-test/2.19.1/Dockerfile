@@ -2,13 +2,13 @@ FROM continuumio/miniconda3
 
 MAINTAINER Eichler Lab
 
-RUN apt-get -qqy update --fix-missing && \
-    apt-get -qqy dist-upgrade && \
-    apt-get -qqy install --no-install-recommends \
-                ca-certificates \
+RUN apt-get  update --fix-missing && \
+    apt-get -y install --no-install-recommends \
+    ca-certificates \
+    default-jre \
     autoconf \
     automake \
-    wget && \
+    wget \
     unzip 
 
 RUN apt-get install --fix-missing -y xvfb  
