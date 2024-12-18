@@ -9,7 +9,7 @@ RUN apt-get -qqy update --fix-missing && \
     autoconf \
     automake \
     wget && \
-    unzip  \  
+    unzip 
 
 RUN apt-get install --fix-missing -y xvfb  
 
