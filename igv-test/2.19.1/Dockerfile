@@ -26,4 +26,4 @@ RUN cd /usr/bin && \
 
 RUN apt-get update && apt-get install -y libnss-sss && apt-get clean all
 
-FROM openjdk:17-jdk-slim
+#FROM openjdk:17-jdk-slim
