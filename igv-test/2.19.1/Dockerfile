@@ -25,3 +25,5 @@ RUN cd /usr/bin && \
     ln -s /igv/IGV_2.19.1/igv.sh ./igv
 
 RUN apt-get update && apt-get install -y libnss-sss && apt-get clean all
+
+FROM openjdk:17-jdk-slim
