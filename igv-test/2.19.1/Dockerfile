@@ -1,4 +1,6 @@
-FROM ubuntu:22.04
+FROM continuumio/miniconda3
+
+MAINTAINER Eichler Lab
 
 RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy dist-upgrade && \
