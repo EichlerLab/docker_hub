@@ -7,10 +7,8 @@ RUN apt-get -qqy update --fix-missing && \
     autoconf \
     automake \
     wget \
-    unzip \
-    curl \ 
-    xvfb && \
-    lsof 
+    unzip && \ 
+    xvfb  
 
 RUN mkdir -p /igv && \
     cd /igv && \
