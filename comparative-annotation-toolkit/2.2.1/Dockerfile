@@ -23,7 +23,7 @@ RUN mv htslib /root/tools
 RUN mv bcftools /root/tools
 
 # Augustus
-RUN git clone https://github.com/Gaius-Augustus/Augustus augustus
+RUN git clone https://github.com/Gaius-Augustus/Augustus.git augustus
 RUN cd augustus && git reset --hard ${AUGUSTUS_COMMIT}
 RUN echo 'COMPGENEPRED = true' >> augustus/common.mk
 RUN echo 'SQLITE = true' >> augustus/common.mk
