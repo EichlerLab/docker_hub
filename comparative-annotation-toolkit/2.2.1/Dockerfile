@@ -5,15 +5,15 @@ RUN apt-get install -y build-essential libssl-dev libncurses5-dev libcurl4-opens
 libboost-all-dev sqlite3 libsqlite3-0 libsqlite3-dev libgsl0-dev lp-solve liblpsolve55-dev libbamtools-dev wget git
 
 # htslib
-RUN git clone --recursive git://github.com/samtools/htslib.git
+RUN git clone --recursive https://github.com/samtools/htslib.git
 RUN cd htslib && make install
 
 # bcftools
-RUN git clone git://github.com/samtools/bcftools.git
+RUN git clone https://github.com/samtools/bcftools.git
 RUN cd bcftools && make
 
 # samtools
-RUN git clone git://github.com/samtools/samtools
+RUN git clone https://github.com/samtools/samtools
 RUN cd samtools && make && make install
 
 # MOVE Directories INTO $HOME/tool
@@ -37,10 +37,10 @@ RUN cd hdf5-1.10.1 && ./configure --enable-cxx --prefix=/usr
 RUN cd hdf5-1.10.1 && make && make install
 
 # sonLib
-RUN git clone git://github.com/ComparativeGenomicsToolkit/sonLib.git
+RUN git clone https://github.com/ComparativeGenomicsToolkit/sonLib.git
 
 # HAL
-RUN git clone git://github.com/ComparativeGenomicsToolkit/hal.git
+RUN git clone https://github.com/ComparativeGenomicsToolkit/hal.git
 RUN cd sonLib && make
 RUN cd hal && make
 
