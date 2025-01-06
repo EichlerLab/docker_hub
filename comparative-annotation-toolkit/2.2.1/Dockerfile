@@ -27,6 +27,7 @@ RUN git clone https://github.com/Gaius-Augustus/Augustus.git augustus
 #RUN cd augustus && git reset --hard ${AUGUSTUS_COMMIT}
 RUN echo 'COMPGENEPRED = true' >> augustus/common.mk
 RUN echo 'SQLITE = true' >> augustus/common.mk
+RUN echo 'MYSQL = false' >>  augustus/common.mk
 RUN cd augustus/auxprogs/homGeneMapping/src && sed 's/# BOOST = true/BOOST = true/g' -i Makefile && sed 's/# SQLITE = true/SQLITE = true/g' -i Makefile
 RUN cd augustus && make
 
