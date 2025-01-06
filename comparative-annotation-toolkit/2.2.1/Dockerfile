@@ -32,7 +32,7 @@ RUN cd augustus/auxprogs/homGeneMapping/src && sed 's/# BOOST = true/BOOST = tru
 RUN cd augustus && make
 
 # HDF5
-RUN wget -q http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz
+RUN wget  http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz
 RUN tar xzf hdf5-1.10.1.tar.gz
 RUN cd hdf5-1.10.1 && ./configure --enable-cxx --prefix=/usr
 RUN cd hdf5-1.10.1 && make && make install
