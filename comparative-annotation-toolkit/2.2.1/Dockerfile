@@ -2,7 +2,7 @@ FROM ubuntu:18.04 AS builder
 ARG AUGUSTUS_COMMIT=36ae43d
 RUN apt-get update
 RUN apt-get install -y build-essential libssl-dev libncurses5-dev libcurl4-openssl-dev liblzma-dev libbz2-dev \
-libboost-all-dev sqlite3 libsqlite3-0 libsqlite3-dev libgsl0-dev lp-solve liblpsolve55-dev libbamtools-dev wget git
+libboost-all-dev sqlite3 libsqlite3-0 libsqlite3-dev libgsl0-dev lp-solve liblpsolve55-dev libbamtools-dev wget git libhdf5-dev 
 
 # htslib
 RUN git clone --recursive https://github.com/samtools/htslib.git
@@ -32,10 +32,10 @@ RUN cd augustus/auxprogs/homGeneMapping/src && sed 's/# BOOST = true/BOOST = tru
 RUN cd augustus && make
 
 # HDF5
-RUN wget  http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz
-RUN tar xzf hdf5-1.10.1.tar.gz
-RUN cd hdf5-1.10.1 && ./configure --enable-cxx --prefix=/usr
-RUN cd hdf5-1.10.1 && make && make install
+# RUN wget  http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.gz
+# RUN tar xzf hdf5-1.10.1.tar.gz
+# RUN cd hdf5-1.10.1 && ./configure --enable-cxx --prefix=/usr
+# RUN cd hdf5-1.10.1 && make && make install
 
 # sonLib
 RUN git clone https://github.com/ComparativeGenomicsToolkit/sonLib.git
