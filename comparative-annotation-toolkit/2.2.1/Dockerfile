@@ -61,13 +61,13 @@ RUN tar xvjf sambamba_v0.6.7_linux.tar.bz2
 
 # Slimmer final Docker image
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 RUN apt-get update
 RUN apt-get install -y wget bedtools bamtools samtools sqlite3 libgsl0-dev libcolamd2 software-properties-common libcurl4-openssl-dev exonerate
 #RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN add-apt-repository -y ppa:deadsnakes/ppa && apt-get update
 
-RUN apt-get install -y python3.7 python3.7-distutils
+RUN apt-get install -y python3.7 python3.7-distutils python3.7-venv
 RUN python3.7 -m ensurepip --upgrade
 RUN python3.7 -m pip install --upgrade pip
 
