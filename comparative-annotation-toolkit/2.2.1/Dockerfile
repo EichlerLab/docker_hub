@@ -66,7 +66,7 @@ RUN apt-get update
 RUN apt-get install -y wget bedtools bamtools samtools sqlite3 libgsl0-dev libcolamd2 software-properties-common libcurl4-openssl-dev exonerate
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get install -y python3.7 python3-pip
-RUN python -m pip install --upgrade pip #added
+RUN python -m pip3 install --upgrade pip3 #added
 # Kent
 RUN for i in wigToBigWig faToTwoBit gff3ToGenePred genePredToBed genePredToFakePsl bamToPsl transMapPslToGenePred \
 pslPosTarget axtChain chainMergeSort pslMap pslRecalcMatch pslMapPostChain gtfToGenePred genePredToGtf bedtools \
