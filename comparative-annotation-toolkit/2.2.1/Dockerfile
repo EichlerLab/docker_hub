@@ -1,9 +1,9 @@
 FROM continuumio/miniconda3
 MAINTAINER Eichler Lab
 
-COPY ./environment.yml /
+COPY ./environment.yaml /
 
-RUN conda env create -f /environment.yml && conda clean -a
+RUN conda env create -f /environment.yaml && conda clean -a
 
 #RUN echo "source activate ComparativeAnnotationToolkit" > ~/.bashrc
 

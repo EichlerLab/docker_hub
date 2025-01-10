@@ -1,4 +1,4 @@
-name: cat
+name: ComparativeAnnotationToolkit
 channels:
   - conda-forge
   - bioconda
