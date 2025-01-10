@@ -23,7 +23,7 @@ RUN apt-get -qqy update --fix-missing && \
                 zlib1g-dev
 
 
-COPY ./environment.yaml 
+COPY ./environment.yaml / 
 RUN conda env create -f /environment.yaml && conda clean -a
 
 #RUN echo "source activate ComparativeAnnotationToolkit" > ~/.bashrc
