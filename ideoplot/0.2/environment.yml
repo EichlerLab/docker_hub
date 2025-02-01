@@ -1,0 +1,14 @@
+name: ideoplot
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pandas
+  - pybedtools
+  - bedtools
+  - numexpr
+  - numpy=1.22.4
+  - matplotlib=3.6.0
+  - joblib
+prefix: /opt/conda/envs/ideoplot
