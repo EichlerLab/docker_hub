@@ -26,7 +26,8 @@ RUN apt-get -qqy update --fix-missing && \
                 xz-utils \
                 libisal-dev \
                 libdeflate-dev \
-                zlib1g-dev && \
+                zlib1g-dev \
+                htslib && \
                 rm -rf /var/lib/apt/lists/*
 # Install fastplong
 RUN git clone https://github.com/OpenGene/fastplong.git /opt/fastplong
