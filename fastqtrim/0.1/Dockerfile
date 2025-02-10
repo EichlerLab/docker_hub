@@ -1,7 +1,8 @@
 FROM ubuntu:22.04
 
 ARG FASTPLONG_VERSION=0.2.2
-ARG SAMTOOLS_VERSION=1.20
+ARG SAMTOOLS_VERSION=1.21
+ARG HTSLIB_VERSION=1.21
 
 LABEL maintainer="Youngjun Kwon"
 
@@ -27,7 +28,6 @@ RUN apt-get -qqy update --fix-missing && \
                 libisal-dev \
                 libdeflate-dev \
                 zlib1g-dev \
-                htslib && \
                 rm -rf /var/lib/apt/lists/*
 # Install fastplong
 RUN git clone https://github.com/OpenGene/fastplong.git /opt/fastplong
@@ -45,6 +45,13 @@ RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSI
 ENV PATH=/opt/samtools:$PATH
 RUN samtools --help
 
+# Install htslib
+
+RUN git clone --recursive https://github.com/samtools/htslib.git /opt/htslib
+WORKDIR /opt/htslib
+RUN RUN git checkout "${HTSLIB_VERSION}" && ./configure --prefix=/opt/htslib && make && make install
+ENV PATH=/opt/htslib:$PATH
+
 # Software info recording
 RUN mkdir -p /app && \
     SOFTWARE_LIST_FILE="/app/software.list" && \
@@ -54,7 +61,8 @@ RUN mkdir -p /app && \
     SOFTWARE_FROM_PKG="" && \
     # space-separated names of software and versions installed manually.
     SOFTWARE_VERSION_MANUAL="fastplong=${FASTPLONG_VERSION} \
-                            samtools=${SAMTOOLS_VERSION}" && \
+                            samtools=${SAMTOOLS_VERSION} \
+                            htslib=${HTSLIB_VERSION}" && \
     # Recording the names of software and versions into the file /app/software.list .
     for SOFTWARE_PKG in $SOFTWARE_FROM_PKG; do \
         if [ "${OSID}" = "ubuntu" ] || [ "${OSID}" = "debian" ]; then \
