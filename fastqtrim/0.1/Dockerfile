@@ -49,7 +49,7 @@ RUN samtools --help
 
 RUN git clone --recursive https://github.com/samtools/htslib.git /opt/htslib
 WORKDIR /opt/htslib
-RUN RUN git checkout "${HTSLIB_VERSION}" && ./configure --prefix=/opt/htslib && make && make install
+RUN git checkout "${HTSLIB_VERSION}" && ./configure --prefix=/opt/htslib && make && make install
 ENV PATH=/opt/htslib:$PATH
 
 # Software info recording
