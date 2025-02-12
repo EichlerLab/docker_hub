@@ -15,4 +15,5 @@ dependencies:
   - polars
   - pip:
     - helpers
+    - tqdm
 prefix: /opt/conda/envs/audano-curve
