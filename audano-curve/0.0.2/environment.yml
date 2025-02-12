@@ -1,0 +1,18 @@
+name: audano-curve
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools
+  - numpy
+  - pandas
+  - matplotlib
+  - scipy
+  - pysam
+  - pybedtools
+  - gzip
+  - polars
+  - pip:
+    - helpers
+prefix: /opt/conda/envs/audano-curve
