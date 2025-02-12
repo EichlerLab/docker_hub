@@ -15,3 +15,5 @@ RUN mkdir -p /app/
 COPY ./Dockerfile /
 
 COPY ./environment.yml /
+
+RUN mkdir -p /temp_dir

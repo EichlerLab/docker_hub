@@ -12,6 +12,7 @@ dependencies:
   - pysam
   - pybedtools
   - gzip
+  - polars
   - pip:
     - helpers
 prefix: /opt/conda/envs/audano-curve
