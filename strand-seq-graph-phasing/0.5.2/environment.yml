@@ -32,3 +32,4 @@ dependencies:
     - r-matrix
     - r-pkgconfig
     - r-tidyverse>=1.3.2
+    - r-argparse
