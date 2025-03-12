@@ -9,7 +9,7 @@ RUN conda env create -f /environment.yml && conda clean -a
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/strand-seq-graph-phasing/lib/
 
 
-ENV PATH=/opt/conda/envs/strand-seq-graph-phasing/bin/:${PATH}
+ENV PATH=/opt/conda/envs/env_Renv2/bin/:${PATH}
 
 RUN echo "source activate env_Renv2" > ~/.bashrc
 
