@@ -34,3 +34,4 @@ dependencies:
     - r-tidyverse>=1.3.2
     - r-argparse
     - r-coop
+    - r-factominer
