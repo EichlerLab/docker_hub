@@ -1,0 +1,15 @@
+name: assembly_eval
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools
+  - minimap2
+  - winnowmap
+  - meryl
+  - bedtools
+  - rustybam
+  - repeatmasker
+  - rsync
+prefix: /opt/conda/envs/assembly_eval
