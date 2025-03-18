@@ -1,0 +1,30 @@
+FROM ubuntu:22.04
+
+LABEL Maintainer="Eichler lab"
+
+ARG BLAST_VERSION=2.16.0+
+
+# Default build libraries
+RUN apt-get -qqy update --fix-missing && \
+    apt-get -qqy dist-upgrade && \
+    apt-get -qqy install --no-install-recommends  \
+                 ca-certificates \
+                 libbz2-dev \
+                 libcurl4-openssl-dev \
+                 liblzma-dev \
+                 libncurses5-dev \
+                 autoconf \
+                 automake \
+                 bzip2  \
+                 gcc \
+                 g++ \
+                 make \
+                 wget \
+                 zlib1g-dev # buildkit
+
+
+RUN wget --no-check-certificate https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-${BLAST_VERSION}-x64-linux.tar.gz && \
+    tar zxvf ncbi-blast-${BLAST_VERSION}-x64-linux.tar.gz && cd ncbi-blast-${BLAST_VERSION} && cp -rl ./bin /usr/
+
+RUN mkdir -p /app/ && echo -e "ncbi-blast=${BLAST_VERSION}" > /app/software.list
+
