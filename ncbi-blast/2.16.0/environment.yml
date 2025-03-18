@@ -1,0 +1,8 @@
+name: blast
+channels:
+  - bioconda
+dependencies:
+  - blast=2.16.0
+
+prefix: /opt/conda/envs/blast
+
