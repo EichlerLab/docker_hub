@@ -2,7 +2,7 @@ name: blast
 channels:
   - bioconda
 dependencies:
-  - blast=2.16.0
+  - blast
 
 prefix: /opt/conda/envs/blast
 
