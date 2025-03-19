@@ -13,3 +13,4 @@ ENV PATH=/opt/conda/envs/gff_tools/bin/:${PATH}
 RUN mkdir -p /app/
 
 COPY ./software.list /app/
+
