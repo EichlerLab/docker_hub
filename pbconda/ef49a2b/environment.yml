@@ -14,6 +14,7 @@ dependencies:
   - pbsv=2.11.0
   - pbtk=3.5.0
   - trgt=1.5.1
+  - gffread=0.12.7
 
 prefix: /opt/conda/envs/pbconda
 
