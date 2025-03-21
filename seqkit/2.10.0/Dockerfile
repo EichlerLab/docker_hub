@@ -16,6 +16,7 @@ RUN apt-get -qqy update --fix-missing && \
                 libncurses5-dev \
                 autoconf \
                 automake \
+		gzip \
                 bzip2 \
                 gcc \
                 g++ \
