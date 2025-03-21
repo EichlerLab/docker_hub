@@ -1,7 +1,6 @@
 liftoff=1.6.3
-bzip=TBA
-pigz=TBA
-pbpigeon=TBA
-gffread=TBA
-samtools=TBA
-htslib=TBA
+pigz=2.8
+pbpigeon=1.4.0
+gffread=0.12.7
+samtools=1.21
+htslib=1.21

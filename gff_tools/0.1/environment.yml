@@ -4,12 +4,11 @@ channels:
   - conda-forge
 dependencies:
   - liftoff=1.6.3
-  - htslib=1.16
+  - htslib
   - pigz
   - pbpigeon
   - gffread
   - samtools
-  - htslib
 
 prefix: /opt/conda/envs/gff_tools
 
