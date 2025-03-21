@@ -3,7 +3,7 @@ channels:
   - bioconda
 dependencies:
   - liftoff=1.6.3
-  - bzip
+  - bgzip
   - pigz
   - pbpigeon
   - gffread
