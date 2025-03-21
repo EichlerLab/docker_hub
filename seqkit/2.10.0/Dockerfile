@@ -38,3 +38,4 @@ ENV PATH=/opt/seqkit:$PATH
 WORKDIR /app
 
 COPY ./software.list /app/
+
