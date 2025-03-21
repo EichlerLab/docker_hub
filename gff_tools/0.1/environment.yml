@@ -1,9 +1,10 @@
 name: gff_tools
 channels:
   - bioconda
+  - conda-forge
 dependencies:
   - liftoff=1.6.3
-  - bgzip
+  - htslib=1.16
   - pigz
   - pbpigeon
   - gffread
