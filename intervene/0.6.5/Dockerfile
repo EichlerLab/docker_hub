@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3
+FROM conda/miniconda3
 
 LABEL Maintainer="Eichler Lab"
 
