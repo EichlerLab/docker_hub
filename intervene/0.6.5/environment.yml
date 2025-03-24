@@ -2,7 +2,7 @@ name: intervene
 channels:
   - bioconda
 dependencies:
-  - intervene=0.6.5
+  - intervene
 
 prefix: /opt/conda/envs/intervene
 
