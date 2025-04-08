@@ -1,0 +1,9 @@
+name: longcalld
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - longcalld
+  - gzip
+prefix: /opt/conda/envs/longcalld
