@@ -33,6 +33,8 @@ RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy install r-base r-base-dev
 
 RUN Rscript -e "install.packages(c('argparse'))"
+WORKDIR /home
+
 RUN Rscript ./install_packages.R
 
-
+ENV PATH /home/:$PATH
