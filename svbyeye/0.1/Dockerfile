@@ -35,7 +35,10 @@ RUN apt-get -qqy update --fix-missing && \
 RUN Rscript -e "install.packages(c('argparse'))"
 WORKDIR /home
 
-RUN Rscript ./install_packages.R
+RUN Rscript -e "install.packages('devtools')"
+RUN Rscript -e "library(devtools)"
+RUN Rscript -e "devtools::install_github('daewoooo/SVbyEye', branch='master')"
+#RUN Rscript ./install_packages.R
 
 ENV PATH /home/:$PATH
 
