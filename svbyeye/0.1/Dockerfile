@@ -30,7 +30,7 @@ RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy dist-upgrade && \
     apt-get -qqy install r-base r-base-dev
 
-RUN Rscript -e "install.packages(c('argparse','usethis','pkgdown', 'roxygen2', 'rversions', 'urlchecker'))
+RUN Rscript -e "install.packages(c('argparse','usethis','pkgdown', 'roxygen2', 'rversions', 'urlchecker'))"
 RUN Rscript ./install_packages.R
 
 
