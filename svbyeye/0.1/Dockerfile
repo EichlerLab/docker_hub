@@ -4,6 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 
 COPY ./install_packages.R /
+ENV R_LIBS_SITE=/usr/local/lib/R/site-library
 
 # Default build libraries
 RUN apt-get -qqy update --fix-missing && \

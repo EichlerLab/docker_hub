@@ -4,6 +4,6 @@
 #library(devtools)
 #devtools::install_github("daewoooo/SVbyEye", branch="master")
 
-install.packages("remotes")
-remotes::install_github("daewoooo/SVbyEye")
+install.packages("remotes", lib="/usr/local/lib/R/site-library")
+remotes::install_github("daewoooo/SVbyEye", lib="/usr/local/lib/R/site-library")
 
