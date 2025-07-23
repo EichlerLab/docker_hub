@@ -1,4 +1,4 @@
-#/bin/env R
+#! /bin/env R
 
 #install.packages("devtools")
 #library(devtools)
