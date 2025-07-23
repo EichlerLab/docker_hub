@@ -38,3 +38,4 @@ WORKDIR /home
 RUN Rscript ./install_packages.R
 
 ENV PATH /home/:$PATH
+
