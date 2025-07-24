@@ -48,9 +48,9 @@ RUN Rscript -e "install.packages(c('argparse'))"
 #RUN Rscript ./install_packages.R
 
 
-install.packages("remotes", lib="/usr/local/lib/R/site-library")
-library(remotes)
-remotes::install_github("daewoooo/SVbyEye", lib="/usr/local/lib/R/site-library")
+RUN Rscript -e "install.packages('remotes', lib='/usr/local/lib/R/site-library')"
+RUN Rscript -e "library(remotes)"
+RUN Rscript -e "remotes::install_github('daewoooo/SVbyEye', lib='/usr/local/lib/R/site-library')"
 
 
 
