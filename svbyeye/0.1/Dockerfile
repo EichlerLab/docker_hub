@@ -30,9 +30,9 @@ RUN apt-get -qqy update --fix-missing && \
 
 
 RUN apt-get -qqy install --no-install-recommends  build-essential
-RUN apt-get install libcurl4-gnutls-dev
-RUN apt-get install libxml2-dev
-RUN apt-get install libssl-dev
+RUN apt-get -qqy install --no-install-recommends  libcurl4-gnutls-dev
+RUN apt-get -qqy install --no-install-recommends  libxml2-dev
+RUN apt-get -qqy install --no-install-recommends  libssl-dev
 
 
 RUN apt-get -qqy update --fix-missing && \
