@@ -29,10 +29,10 @@ RUN apt-get -qqy update --fix-missing && \
                  zlib1g-dev
 
 
-RUN apt-get -qqy install --no-install-recommends  build-essential
-RUN apt-get -qqy install --no-install-recommends  libcurl4-gnutls-dev
-RUN apt-get -qqy install --no-install-recommends  libxml2-dev
-RUN apt-get -qqy install --no-install-recommends  libssl-dev
+#RUN apt-get -qqy install --no-install-recommends  build-essential
+#RUN apt-get -qqy install --no-install-recommends  libcurl4-gnutls-dev
+#RUN apt-get -qqy install --no-install-recommends  libxml2-dev
+#RUN apt-get -qqy install --no-install-recommends  libssl-dev
 
 
 RUN apt-get -qqy update --fix-missing && \
@@ -40,12 +40,19 @@ RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy install r-base r-base-dev
 
 RUN Rscript -e "install.packages(c('argparse'))"
-WORKDIR /home
 
-RUN Rscript -e "install.packages('devtools', dependencies = TRUE)"
-RUN Rscript -e "library(devtools)"
-RUN Rscript -e "devtools::install_github('daewoooo/SVbyEye', branch='master')"
+#RUN Rscript -e "install.packages('devtools', dependencies = TRUE)"
+#RUN Rscript -e "library(devtools)"
+#RUN Rscript -e "devtools::install_github('daewoooo/SVbyEye', branch='master')"
+
 #RUN Rscript ./install_packages.R
+
+
+install.packages("remotes", lib="/usr/local/lib/R/site-library")
+library(remotes)
+remotes::install_github("daewoooo/SVbyEye", lib="/usr/local/lib/R/site-library")
+
+
 
 ENV PATH /home/:$PATH
 
