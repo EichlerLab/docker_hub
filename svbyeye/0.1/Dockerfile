@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+WORKDIR /home
 
 COPY ./install_packages.R /
 ENV R_LIBS_SITE=/usr/local/lib/R/site-library
@@ -28,7 +29,10 @@ RUN apt-get -qqy update --fix-missing && \
                  zlib1g-dev
 
 
-RUN apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
+RUN apt-get install build-essential
+RUN apt-get install libcurl4-gnutls-dev
+RUN apt-get install libxml2-dev
+RUN apt-get install libssl-dev
 
 
 RUN apt-get -qqy update --fix-missing && \
