@@ -28,6 +28,9 @@ RUN apt-get -qqy update --fix-missing && \
                  zlib1g-dev
 
 
+RUN apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
+
+
 RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy dist-upgrade && \
     apt-get -qqy install r-base r-base-dev
