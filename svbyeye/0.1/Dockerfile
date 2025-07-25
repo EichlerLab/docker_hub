@@ -33,7 +33,7 @@ RUN conda env create -f /environment.yml && conda clean -a
 ENV PATH=/opt/conda/envs/r_env/bin/:${PATH}
 RUN apt-get -y update && apt-get -y install file gawk && ln -sf /usr/bin/gawk /usr/bin/awk
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/assembly_eval/lib/
-RUN echo "source activate r_env" > ~/.bashrc
+RUN echo "conda activate r_env" > ~/.bashrc
 
 #RUN apt-get -qqy install --no-install-recommends  build-essential
 #RUN apt-get -qqy install --no-install-recommends  libcurl4-gnutls-dev
