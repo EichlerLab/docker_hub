@@ -45,7 +45,7 @@ RUN echo "conda activate r_env" > ~/.bashrc
 #    apt-get -qqy dist-upgrade && \
 #    apt-get -qqy install r-base=4.3.0 r-base-dev
 
-RUN Rscript -e "install.packages(c('argparse'))"
+RUN Rscript -e "install.packages(c('argparse'),repos = 'http://cran.us.r-project.org')"
 #RUN conda run -n r_env Rscript -e "install.packages('argparse')"
 
 
