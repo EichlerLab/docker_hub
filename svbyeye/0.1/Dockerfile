@@ -40,11 +40,6 @@ RUN echo "conda activate r_env" > ~/.bashrc
 #RUN apt-get -qqy install --no-install-recommends  libxml2-dev
 #RUN apt-get -qqy install --no-install-recommends  libssl-dev
 
-# R
-#RUN apt-get -qqy update --fix-missing && \
-#    apt-get -qqy dist-upgrade && \
-#    apt-get -qqy install r-base=4.3.0 r-base-dev
-
 RUN Rscript -e "install.packages(c('argparse'),repos = 'http://cran.us.r-project.org')"
 #RUN conda run -n r_env Rscript -e "install.packages('argparse')"
 
@@ -54,11 +49,6 @@ RUN Rscript -e "install.packages(c('argparse'),repos = 'http://cran.us.r-project
 #RUN Rscript -e "devtools::install_github('daewoooo/SVbyEye', branch='master')"
 
 #RUN Rscript ./install_packages.R
-
-
-#RUN Rscript -e "install.packages('remotes', lib='/usr/local/lib/R/site-library')
-#RUN Rscript -e "library(remotes)"
-#RUN Rscript -e "remotes::install_github('daewoooo/SVbyEye', lib='/usr/local/lib/R/site-library')"
 
 
 RUN Rscript -e "install.packages('remotes',repos = 'http://cran.us.r-project.org')"
