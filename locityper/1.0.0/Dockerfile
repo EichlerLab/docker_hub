@@ -1,15 +1,48 @@
-FROM continuumio/miniconda3
+FROM rust:1.84-slim-bookworm
 
-COPY ./environment.yml /
+LABEL version="1.0.0"
+LABEL description="Targeted genotyper for complex polymorphic loci from short and long read WGS."
 
-RUN conda env create -f /environment.yml && conda clean -a
+ARG PREFIX=/usr/local
+ARG SAMTOOLS_VER=1.21
+ARG MM2_VER=2.26
+ARG STROBE_VER=0.13.0
 
-ENV PATH=/opt/conda/envs/locityper/bin/:${PATH}
+RUN apt-get update && \
+    apt-get install --assume-yes --no-install-recommends  \
+        curl clang libclang-dev libncurses-dev zlib1g-dev \
+        bzip2 libbz2-dev liblzma-dev make cmake git g++ jellyfish \
+        wget bc unzip bzip2 less tabix vim build-essential
 
-RUN apt-get -y update && apt-get -y install file gawk && ln -sf /usr/bin/gawk /usr/bin/awk
+WORKDIR /repos
+RUN curl -L https://github.com/lh3/minimap2/releases/download/v${MM2_VER}/minimap2-${MM2_VER}_x64-linux.tar.bz2 | \
+    tar --no-same-owner -jxvf - && \
+    cp minimap2-${MM2_VER}_x64-linux/minimap2    ${PREFIX}/bin && \
+    cp minimap2-${MM2_VER}_x64-linux/k8          ${PREFIX}/bin && \
+    cp minimap2-${MM2_VER}_x64-linux/paftools.js ${PREFIX}/bin
 
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/locityper/lib/
+WORKDIR /repos
+RUN curl -L https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VER}/samtools-${SAMTOOLS_VER}.tar.bz2 | \
+    tar --no-same-owner -jxvf - && \
+    cd /repos/samtools-${SAMTOOLS_VER} && \
+    ./configure && \
+    make && \
+    make install prefix=${PREFIX}
 
-RUN echo "source activate locityper" > ~/.bashrc
+WORKDIR /repos
+RUN curl -L https://github.com/ksahlin/strobealign/archive/refs/tags/v${STROBE_VER}.tar.gz | \
+    tar --no-same-owner -zxvf - && \
+    cd /repos/strobealign-${STROBE_VER} && \
+    cmake -B build -DCMAKE_C_FLAGS="-march=native" -DCMAKE_CXX_FLAGS="-march=native" && \
+    make -j -C build && \
+    cp build/strobealign ${PREFIX}/bin
 
-RUN mkdir -p /app/
+WORKDIR /repos
+RUN git clone https://github.com/tprodanov/locityper && \
+    git clone https://github.com/smarco/WFA2-lib locityper/WFA2 && \
+    cargo build --release && \
+    cargo install --no-track --verbose --root "${PREFIX}" --path locityper
+
+WORKDIR /
+COPY Dockerfile .
+RUN rm -rf /repos
