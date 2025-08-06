@@ -38,10 +38,17 @@ RUN curl -L https://github.com/ksahlin/strobealign/archive/refs/tags/v${STROBE_V
     cp build/strobealign ${PREFIX}/bin
 
 WORKDIR /repos
+
 RUN git clone https://github.com/tprodanov/locityper && \
-    git clone https://github.com/smarco/WFA2-lib locityper/WFA2 && \
+    cd locityper && \
+    git clone https://github.com/smarco/WFA2-lib WFA2 && \
     cargo build --release && \
-    cargo install --no-track --verbose --root "${PREFIX}" --path locityper
+    cargo install  --no-track --verbose --root "${PREFIX}" --path locityper
+
+# RUN git clone https://github.com/tprodanov/locityper && \
+#     git clone https://github.com/smarco/WFA2-lib locityper/WFA2 && \
+#     cargo build --release && \
+#     cargo install --no-track --verbose --root "${PREFIX}" --path locityper
 
 WORKDIR /
 COPY Dockerfile .
