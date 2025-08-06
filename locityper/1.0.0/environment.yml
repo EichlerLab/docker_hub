@@ -1,0 +1,10 @@
+name: locityper
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools
+  - locityper=1.0.0
+  - gzip
+prefix: /opt/conda/envs/locityper
