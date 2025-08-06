@@ -1,4 +1,4 @@
-FROM rust:1.84-slim-bookworm
+FROM rust:1.88-slim-bookworm
 
 LABEL version="1.0.0"
 LABEL description="Targeted genotyper for complex polymorphic loci from short and long read WGS."
@@ -43,7 +43,7 @@ RUN git clone https://github.com/tprodanov/locityper && \
     cd locityper && \
     git clone https://github.com/smarco/WFA2-lib WFA2 && \
     cargo build --release && \
-    cargo install  --no-track --verbose --root "${PREFIX}" --path locityper
+    cargo install  --no-track --verbose --root "${PREFIX}" --path .
 
 # RUN git clone https://github.com/tprodanov/locityper && \
 #     git clone https://github.com/smarco/WFA2-lib locityper/WFA2 && \
