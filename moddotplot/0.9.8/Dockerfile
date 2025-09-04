@@ -4,6 +4,8 @@ MAINTAINER Eichler Lab
 
 ARG MODDOTPLOT_VERSION=0.9.8
 
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/*
+
 RUN conda install -y python=3.11 && conda clean -afy
 
 RUN git clone https://github.com/marbl/ModDotPlot.git && cd ModDotPlot && git checkout v${MODDOTPLOT_VERSION} && python -m pip install .
