@@ -1,0 +1,19 @@
+name: pullregions
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python
+  - snakefmt
+  - black
+  - snakedeploy
+  - minimap2
+  - samtools
+  - bedtools
+  - pandas
+  - numpy
+  - pafpy
+  - pysam
+
+prefix: /opt/conda/envs/pullregions
