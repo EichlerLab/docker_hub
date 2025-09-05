@@ -1,5 +1,7 @@
 FROM continuumio/miniconda3
 
+# this is a useless comment
+
 MAINTAINER Eichler Lab
 
 COPY ./environment.yml /
