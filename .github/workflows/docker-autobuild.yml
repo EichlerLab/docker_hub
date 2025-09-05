@@ -22,7 +22,7 @@ jobs:
       id: dockerfiles
       run: |
         set +e
-        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD | grep 'Dockerfile$\|environment.yml$')
+        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD | grep 'Dockerfile$\|environment.yml$\|software.list$')
         echo $CHANGED_FILES
         set -e
         CHANGED_IMAGES=""
