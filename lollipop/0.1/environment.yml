@@ -10,3 +10,4 @@ dependencies:
       - r-gggenes
       - bioconductor-bsgenome
       - bioconductor-genomicalignments
+      - bioconductor-trackviewer
