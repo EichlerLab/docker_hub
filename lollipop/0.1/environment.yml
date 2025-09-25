@@ -12,4 +12,5 @@ dependencies:
       - bioconductor-genomicalignments
       - bioconductor-trackviewer
       - bioconductor-biomart
-      - bioconductor-ensdb.hsapiens.v86
+      - bioconductor-txdb.hsapiens.ucsc.hg19.knowngene
+      - bioconductor-org.hs.eg.db
