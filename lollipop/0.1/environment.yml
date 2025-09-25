@@ -12,3 +12,4 @@ dependencies:
       - bioconductor-genomicalignments
       - bioconductor-trackviewer
       - bioconductor-biomart
+      - bioconductor-ensdb.hsapiens.v86
