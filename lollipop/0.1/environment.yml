@@ -11,3 +11,4 @@ dependencies:
       - bioconductor-bsgenome
       - bioconductor-genomicalignments
       - bioconductor-trackviewer
+      - bioconductor-biomart
