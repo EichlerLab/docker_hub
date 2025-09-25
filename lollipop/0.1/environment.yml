@@ -14,3 +14,5 @@ dependencies:
       - bioconductor-biomart
       - bioconductor-txdb.hsapiens.ucsc.hg19.knowngene
       - bioconductor-org.hs.eg.db
+      - bioconductor-ensembldb
+      - bioconductor-EnsDb.Hsapiens.v75
