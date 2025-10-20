@@ -28,7 +28,7 @@ RUN apt-get -qqy update --fix-missing && \
 
 RUN git clone https://github.com/mbhall88/rasusa.git /opt/rasusa
 WORKDIR /opt/rasusa
-RUN git checkout ${VERSION} && cargo build --release.
+RUN git checkout ${VERSION} && cargo build --release
 ENV PATH=/opt/rasusa/target/release:$PATH
 RUN rasusa --help
 RUN mkdir -p /app/ && echo -e "rasusa=${VERSION}" > /app/software.list
