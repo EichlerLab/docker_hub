@@ -25,6 +25,7 @@ RUN apt-get update && \
     hdf5-tools \
     libfontconfig1-dev \
     libharfbuzz-dev libfribidi-dev \
+    libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libwebp-dev \
     build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev \
     software-properties-common && \
     apt-get -y clean  && \
