@@ -23,7 +23,8 @@ RUN apt-get update && \
     vim \
     libhdf5-dev \
     hdf5-tools \
-    libcurl4-gnutls-dev \
+    libcurl4-openssl-dev \
+    build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev \
     software-properties-common && \
     apt-get -y clean  && \
     apt-get -y autoclean  && \
