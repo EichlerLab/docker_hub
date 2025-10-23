@@ -46,8 +46,16 @@ RUN wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb
     rm r-${R_VERSION}_1_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
 
-RUN R -e "install.packages('devtools', dependencies=TRUE, repos='http://cran.rstudio.com/')"
-RUN R -e "devtools::install_version('ggplot2', '3.4.4')"
+RUN R -e "install.packages('ggplot2',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('ampir',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('tidyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('stringr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('BiocManager',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "BiocManager::install('Biostrings')"
+
+# RUN R -e "install.packages('devtools', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+# RUN R -e "devtools::install_version('ggplot2', '3.4.4')"
 # RUN R -e "versions::install.versions('BiocManager', '1.30.22')"
 # RUN R -e "versions::install.versions('ampir', '1.0.0')"
 # RUN R -e "versions::install.versions('dplyr', '1.1.3')"
