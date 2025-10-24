@@ -54,6 +54,7 @@ RUN R -e "install.packages('stringr',dependencies=TRUE, repos='http://cran.rstud
 RUN R -e "install.packages('BiocManager',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 RUN R -e "BiocManager::install('Biostrings')"
 
+# installing packages specific to R v4.3.2
 # RUN R -e "install.packages('devtools', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 # RUN R -e "devtools::install_version('ggplot2', '3.4.4')"
 # RUN R -e "versions::install.versions('BiocManager', '1.30.22')"
