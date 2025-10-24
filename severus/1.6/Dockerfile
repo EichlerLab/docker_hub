@@ -23,7 +23,7 @@ RUN apt-get -qqy update --fix-missing && \
 
 #RUN wget https://github.com/KolmogorovLab/Severus/archive/refs/tags/1.6.tar.gz && tar -zxvf 1.6.tar.gz 
 
-conda create -n severus_env severus=1.6
+conda create -n severus_env severus=1.6 -c bioconda
 conda activate severus_env
 
 
