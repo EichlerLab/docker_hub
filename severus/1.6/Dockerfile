@@ -1,5 +1,6 @@
-FROM ubuntu:22.04
+FROM continuumio/miniconda3
 
+#FROM ubuntu:22.04
 # Default build libraries
 RUN apt-get -qqy update --fix-missing && \
     apt-get -qqy dist-upgrade && \
