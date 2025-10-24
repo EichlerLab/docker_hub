@@ -2,6 +2,8 @@ FROM continuumio/miniconda3
 
 COPY ./environment.yml /
 
+# this is a comment
+
 RUN conda env create -f /environment.yml && conda clean -a
 
 ENV PATH=/opt/conda/envs/locityper/bin/:${PATH}
