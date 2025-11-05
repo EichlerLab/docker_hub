@@ -30,6 +30,7 @@ RUN apt-get -qqy update --fix-missing && \
 
 RUN git clone https://github.com/KolmogorovLab/Severus
 RUN cd Severus
+FROM continuumio/miniconda3
 RUN conda env create --name severus_env --file environment.yml
 RUN conda activate severus_env
 
