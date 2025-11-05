@@ -33,8 +33,8 @@ COPY ./environment.yml /
 RUN git clone https://github.com/KolmogorovLab/Severus 
 #RUN cd Severus
 RUN conda env create --name severus_env --file environment.yml && conda clean -a
-RUN conda activate severus_env
-
+#RUN conda activate severus_env
+RUN echo "conda activate severus_env" > ~/.bashrc
 
 #conda create -n severus_env severus=1.6 -c bioconda
 #conda activate severus_env
