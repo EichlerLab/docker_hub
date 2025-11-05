@@ -30,9 +30,9 @@ RUN apt-get -qqy update --fix-missing && \
 
 
 COPY ./environment.yml /
-RUN git clone https://github.com/KolmogorovLab/Severus
+RUN git clone https://github.com/KolmogorovLab/Severus 
 #RUN cd Severus
-RUN conda env create --name severus_env --file environment.yml
+RUN conda env create --name severus_env --file environment.yml && conda clean -a
 RUN conda activate severus_env
 
 
