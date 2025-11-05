@@ -39,4 +39,4 @@ RUN echo "conda activate severus_env" > ~/.bashrc
 #conda create -n severus_env severus=1.6 -c bioconda
 #conda activate severus_env
 
-
+ENV PATH /home/:$PATH
