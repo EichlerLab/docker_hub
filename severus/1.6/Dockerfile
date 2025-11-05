@@ -1,4 +1,6 @@
-FROM ubuntu:22.04
+#FROM ubuntu:22.04
+FROM continuumio/miniconda3
+
 
 #FROM continuumio/miniconda3
 
@@ -29,9 +31,7 @@ RUN apt-get -qqy update --fix-missing && \
 
 COPY ./environment.yml /
 RUN git clone https://github.com/KolmogorovLab/Severus
-FROM continuumio/miniconda3
-RUN git clone https://github.com/KolmogorovLab/Severus
-RUN cd Severus
+#RUN cd Severus
 RUN conda env create --name severus_env --file environment.yml
 RUN conda activate severus_env
 
