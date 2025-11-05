@@ -27,7 +27,7 @@ RUN apt-get -qqy update --fix-missing && \
 #RUN wget https://github.com/KolmogorovLab/Severus/archive/refs/tags/1.6.tar.gz && tar -zxvf 1.6.tar.gz 
 
 
-
+COPY ./environment.yml /
 RUN git clone https://github.com/KolmogorovLab/Severus
 FROM continuumio/miniconda3
 RUN git clone https://github.com/KolmogorovLab/Severus
