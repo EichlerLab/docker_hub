@@ -1,6 +1,7 @@
 #FROM ubuntu:22.04
 FROM continuumio/miniconda3
 
+WORKDIR /opt
 
 #FROM continuumio/miniconda3
 
@@ -29,14 +30,13 @@ RUN apt-get -qqy update --fix-missing && \
 #RUN wget https://github.com/KolmogorovLab/Severus/archive/refs/tags/1.6.tar.gz && tar -zxvf 1.6.tar.gz 
 
 
-COPY ./environment.yml /
-RUN git clone https://github.com/KolmogorovLab/Severus 
+COPY ./environment.yml /environment.yml
+
+RUN git clone https://github.com/KolmogorovLab/Severus.git 
 #RUN cd Severus
-RUN conda env create --name severus_env --file environment.yml && conda clean -a
+RUN conda env create --name severus_env --file /environment.yml && conda clean -a
 #RUN conda activate severus_env
-RUN echo "conda activate severus_env" > ~/.bashrc
+RUN echo "conda activate severus_env" >> ~/.bashrc
 
-#conda create -n severus_env severus=1.6 -c bioconda
-#conda activate severus_env
+ENV PATH="/opt/conda/envs/severus_env/bin:${PATH}"
 
-ENV PATH /home/:$PATH
