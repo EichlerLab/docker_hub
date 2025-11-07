@@ -38,5 +38,5 @@ RUN conda env create --name severus --file /environment.yml && conda clean -a
 #RUN conda activate severus_env
 RUN echo "conda activate severus" >> ~/.bashrc
 
-ENV PATH="/opt/conda/envs/severus/bin:${PATH}"
-
+#ENV PATH="/opt/conda/envs/severus/bin:${PATH}"
+ENV PATH="/opt/Severus/:${PATH}"
