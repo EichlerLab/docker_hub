@@ -37,6 +37,6 @@ RUN git clone https://github.com/KolmogorovLab/Severus.git
 RUN conda env create --name severus --file /environment.yml && conda clean -a
 #RUN conda activate severus_env
 RUN echo "conda activate severus" >> ~/.bashrc
-
+RUN echo "/opt/Severus/severus.py" >> ~/.bashrc
 #ENV PATH="/opt/conda/envs/severus/bin:${PATH}"
 ENV PATH="/opt/Severus/:${PATH}"
