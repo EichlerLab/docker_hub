@@ -1,4 +1,4 @@
-name: severus
+name: severus_env
 channels:
   - conda-forge
   - bioconda
