@@ -39,4 +39,4 @@ RUN echo "conda activate severus" >> ~/.bashrc
 RUN echo "/opt/Severus/severus.py" >> ~/.bashrc
 #ENV PATH="/opt/conda/envs/severus/bin:${PATH}"
 #ENV PATH="/opt/Severus/:${PATH}"
-ENV PATH="/opt/Severus/:${PATH}"
+ENV PATH="/opt/Severus/severus:${PATH}"
