@@ -33,11 +33,13 @@ RUN apt-get -qqy update --fix-missing && \
 #COPY ./environment.yml /environment.yml
 
 RUN git clone https://github.com/KolmogorovLab/Severus
-RUN cd Severus && conda env create --name severus_env --file /opt/Severus/environment.yml && conda clean -a && conda activate severus_env && ./severus.py
-#RUN conda activate severus_env
-##RUN echo "conda activate severus_env" >> ~/.bashrc
-##RUN echo "/opt/Severus/severus.py" >> ~/.bashrc
-ENV PATH="/opt/conda/envs/severus/bin:${PATH}"
+RUN cd Severus && conda env create --name severus_env --file /opt/Severus/environment.yml && conda clean -a
+
+RUN echo "conda activate severus_env" >> ~/.bashrc
+RUN echo "/opt/Severus/severus.py" >> ~/.bashrc
+RUN source ~/.bashrc
+
+ENV PATH="/opt/conda/envs/severus_env/bin:${PATH}"
 ENV PATH="/opt/Severus/:${PATH}"
-ENV PATH="/opt/conda/envs/severus_env/lib/"
+ENV PATH="/opt/conda/envs/severus_env/lib/:${PATH}"
 ENV PATH="/opt/Severus/severus:${PATH}"
