@@ -27,19 +27,18 @@ RUN apt-get -qqy update --fix-missing && \
                  zlib1g-dev
 
 
-#RUN wget https://github.com/KolmogorovLab/Severus/archive/refs/tags/1.6.tar.gz && tar -zxvf 1.6.tar.gz 
-
-
 #COPY ./environment.yml /environment.yml
 
 RUN git clone https://github.com/KolmogorovLab/Severus
 RUN cd Severus && conda env create --name severus_env --file /opt/Severus/environment.yml && conda clean -a
 
 RUN echo "conda activate severus_env" >> ~/.bashrc
-RUN echo "/opt/Severus/severus.py" >> ~/.bashrc
+RUN /opt/Severus/severus.py
 
 
 ENV PATH="/opt/conda/envs/severus_env/bin:${PATH}"
 ENV PATH="/opt/Severus/:${PATH}"
 ENV PATH="/opt/conda/envs/severus_env/lib/:${PATH}"
 ENV PATH="/opt/Severus/severus:${PATH}"
+
+
