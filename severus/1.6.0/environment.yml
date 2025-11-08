@@ -1,0 +1,8 @@
+name: locityper
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - severus
+prefix: /opt/conda/envs/severus
