@@ -1,4 +1,4 @@
-name: locityper
+name: severus
 channels:
   - conda-forge
   - bioconda
