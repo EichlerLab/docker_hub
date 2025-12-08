@@ -45,7 +45,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN git clone https://github.com/bonsai-team/Porechop_ABI.git /opt/porechop_abi
 WORKDIR /opt/porechop_abi
-RUN git checkout "${PORECHOPABI_VERSION}" && python3 setup.py install --prefix=/opt/porechop_abi
+RUN git checkout "v${PORECHOPABI_VERSION}" && python3 setup.py install --prefix=/opt/porechop_abi
 ENV PATH=/opt/porechop_abi:$PATH
 
 
