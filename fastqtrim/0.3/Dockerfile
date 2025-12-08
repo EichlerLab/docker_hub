@@ -47,8 +47,7 @@ RUN git clone https://github.com/bonsai-team/Porechop_ABI.git /opt/porechop_abi
 WORKDIR /opt/porechop_abi
 RUN git checkout "v${PORECHOPABI_VERSION}" && \
     python3 -m pip install --no-cache-dir networkx && \
-    python3 setup.py install --prefix=/opt/porechop_abi
-ENV PATH=/opt/porechop_abi:$PATH
+    python3 -m pip install .
 
 
 # Install fastplong
