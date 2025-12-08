@@ -31,6 +31,24 @@ RUN apt-get -qqy update --fix-missing && \
                 libdeflate-dev \
                 zlib1g-dev && \
                 rm -rf /var/lib/apt/lists/*
+
+# Install porechop abi
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3 \
+        python3-pip \
+        python3-setuptools \ 
+        python3-dev \
+        python3-numpy \
+        python3-biopython \
+        python3-scipy && \
+    rm -rf /var/lib/apt/lists/*
+RUN git clone https://github.com/bonsai-team/Porechop_ABI.git /opt/porechop_abi
+WORKDIR /opt/porechop_abi
+RUN git checkout "${PORECHOPABI_VERSION}" && python3 setup.py install --prefix=/opt/porechop_abi
+ENV PATH=/opt/porechop_abi:$PATH
+
+
 # Install fastplong
 RUN git clone https://github.com/OpenGene/fastplong.git /opt/fastplong
 WORKDIR /opt/fastplong
@@ -59,21 +77,6 @@ RUN git clone --recursive https://github.com/samtools/htslib.git /opt/htslib
 WORKDIR /opt/htslib
 RUN git checkout "${HTSLIB_VERSION}" && autoreconf -i && ./configure --prefix=/opt/htslib && make && make install
 ENV PATH=/opt/htslib:$PATH
-
-# Install porechop abi
-RUN apt-get install -y --no-install-recommends \
-        python3 \
-        python3-pip \
-        python3-setuptools \ 
-        python3-dev \
-        python3-numpy \
-        python3-biopython \
-        python3-scipy && \
-    rm -rf /var/lib/apt/lists/*
-RUN git clone https://github.com/bonsai-team/Porechop_ABI.git /opt/porechop_abi
-WORKDIR /opt/porechop_abi
-RUN git checkout "${PORECHOPABI_VERSION}" && python3 setup.py install --prefix=/opt/porechop_abi
-ENV PATH=/opt/porechop_abi:$PATH
 
 # Software info recording
 RUN mkdir -p /app && \
