@@ -64,7 +64,7 @@ ENV PATH=/opt/htslib:$PATH
 RUN apt-get install -y --no-install-recommends \
         python3 \
         python3-pip \
-        pyhton3-setuptools \ 
+        python3-setuptools \ 
         python3-dev && \
     pip install --no-cache-dir \
         biopython \
