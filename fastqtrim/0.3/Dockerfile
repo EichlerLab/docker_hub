@@ -49,7 +49,7 @@ RUN git checkout "v${PORECHOPABI_VERSION}" && \
     python3 -m pip install --no-cache-dir networkx && \
     python3 -m pip install .
 RUN chmod +x /usr/local/lib/python3.10/dist-packages/porechop/msa_consensus && \
-    chmod +x /usr/local/lib/python3.10/dist-packages/porechop/approx_counter_2
+    chmod +x /usr/local/lib/python3.10/dist-packages/porechop/approx_counter
 
 # Install fastplong
 RUN git clone https://github.com/OpenGene/fastplong.git /opt/fastplong
