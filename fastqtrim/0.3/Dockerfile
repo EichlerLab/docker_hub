@@ -48,10 +48,10 @@ WORKDIR /opt/porechop_abi
 RUN git checkout "v${PORECHOPABI_VERSION}" && \
     python3 -m pip install --no-cache-dir networkx && \
     python3 -m pip install . --prefix=/opt/porechop_abi
-ENV PYTHONPATH="/opt/porechop_abi/lib/python3.10/site-packages:${PYTHONPATH}"
-ENV PATH="/opt/porechop_abi/bin:${PATH}"
-# RUN chmod +x /usr/local/lib/python3.10/dist-packages/porechop/msa_consensus && \
-#     chmod +x /usr/local/lib/python3.10/dist-packages/porechop/approx_counter
+ENV PYTHONPATH="/opt/porechop_abi/local/lib/python3.10/dist-packages:${PYTHONPATH}"
+ENV PATH="/opt/porechop_abi/local/bin:${PATH}"
+RUN chmod +x /opt/porechop_abi/local/lib/python3.10/dist-packages/porechop/msa_consensus && \
+    chmod +x /opt/porechop_abi/local/lib/python3.10/dist-packages/porechop/approx_counter
 
 # Install fastplong
 RUN git clone https://github.com/OpenGene/fastplong.git /opt/fastplong
