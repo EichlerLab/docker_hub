@@ -1,7 +1,6 @@
 library("stringr")
-library("ggplot2")
+library("magrittr")
 suppressPackageStartupMessages(library("data.table"))
-suppressPackageStartupMessages(library("tidyverse"))
 
 srt <- function(x){sort(table(x), decreasing = TRUE)}
 
