@@ -34,7 +34,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ARG R_VERSION=4.5.1
-ARG OS_IDENTIFIER=deb-12
+ARG OS_IDENTIFIER=debian-12
 
 RUN wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb && \
     apt-get update -qq && \
@@ -51,8 +51,6 @@ RUN R -e "install.packages('ggplot2',dependencies=TRUE, repos='http://cran.rstud
 RUN R -e "install.packages('tidyverse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 RUN conda env create -f /environment.yml && conda clean -a
-
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/conda/envs/truvari/lib/
 
 ENV PATH=/opt/conda/envs/truvari/bin/:${PATH}
 
