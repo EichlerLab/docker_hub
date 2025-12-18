@@ -1,0 +1,14 @@
+name: truvari
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python
+  - truvari=4.3.1
+  - tabix
+  - bcftools
+  - samtools
+  - bedtools
+  - google-cloud-sdk
+prefix: /opt/conda/envs/truvari
