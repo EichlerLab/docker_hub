@@ -47,8 +47,7 @@ RUN wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb
 
 RUN R -e "install.packages('data.table',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('stringr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('ggplot2',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('tidyverse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('magrittr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 RUN conda env create -f /environment.yml && conda clean -a
 
