@@ -11,4 +11,5 @@ dependencies:
   - samtools
   - bedtools
   - google-cloud-sdk
+  - snakemake
 prefix: /opt/conda/envs/truvari
