@@ -29,18 +29,14 @@ RUN git clone --depth 1 \
 
 WORKDIR /opt/ncbi-cxx
 
-# 1) NCBI 권장 configure 스크립트로 빌드 트리 생성
-RUN ./cmake-configure \
-      --without-debug \
-      --prefix=${NCBI_ROOT}
+RUN ./cmake-configure --without-debug
 
-# 2) 생성된 빌드 디렉토리(CMake-*)에서 빌드/설치
-RUN cd CMake-* && \
+RUN cd CMake-*/build && \
     cmake --build . -j$(nproc) && \
-    cmake --install .
+    cmake --install . --prefix ${NCBI_ROOT}
 
 ENV PATH=${NCBI_ROOT}/bin:${PATH}
-# BuildKit 경고 피하려고 기존 LD_LIBRARY_PATH 이어붙이기 대신 고정
+
 ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib
 
 WORKDIR /app
