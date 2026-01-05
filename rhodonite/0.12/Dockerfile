@@ -12,7 +12,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
+RUN conda install -y -n base -c conda-forge mamba && conda clean -a -y
+
 WORKDIR /opt/rhodonite
+
 COPY environment.yml /opt/rhodonite/env.yaml
 
 RUN mamba env create -n ${ENV_NAME} -f /opt/rhodonite/env.yaml && \
