@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-LABEL Maintanier="Eichler Lab"
+LABEL maintainer="Eichler Lab"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV NCBI_VERSION=29.8.0
@@ -27,25 +27,21 @@ RUN git clone --depth 1 \
     --branch release/${NCBI_VERSION} \
     https://github.com/ncbi/ncbi-cxx-toolkit-public.git ncbi-cxx
 
-
 WORKDIR /opt/ncbi-cxx
 
-RUN mkdir build && cd build && \
-    cmake .. \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX=${NCBI_ROOT} \
-      -DBUILD_SHARED_LIBS=ON \
-      -DCMAKE_CXX_STANDARD=17 \
-      -DNCBI_PTBCFG_ENABLE_BLAST=ON \
-      -DNCBI_PTBCFG_ENABLE_SRA=ON \
-      -DNCBI_PTBCFG_ENABLE_CONN=ON \
-      -DNCBI_PTBCFG_ENABLE_APP=ON && \
-    make -j$(nproc) && \
-    make install
+# 1) NCBI 권장 configure 스크립트로 빌드 트리 생성
+RUN ./cmake-configure \
+      --without-debug \
+      --prefix=${NCBI_ROOT}
+
+# 2) 생성된 빌드 디렉토리(CMake-*)에서 빌드/설치
+RUN cd CMake-* && \
+    cmake --build . -j$(nproc) && \
+    cmake --install .
 
 ENV PATH=${NCBI_ROOT}/bin:${PATH}
-ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib:${LD_LIBRARY_PATH}
-
+# BuildKit 경고 피하려고 기존 LD_LIBRARY_PATH 이어붙이기 대신 고정
+ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib
 
 WORKDIR /app
 COPY ./software.list /app/
