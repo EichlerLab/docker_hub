@@ -32,7 +32,7 @@ WORKDIR /opt/ncbi-cxx
 RUN ./cmake-configure --without-debug
 
 RUN cd CMake-*/build && \
-    cmake --build . -j$(nproc) && \
+    cmake --build . -j4 --verbose && \
     cmake --install . --prefix ${NCBI_ROOT}
 
 ENV PATH=${NCBI_ROOT}/bin:${PATH}
