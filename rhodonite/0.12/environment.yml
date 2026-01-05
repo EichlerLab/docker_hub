@@ -1,0 +1,18 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - repeatmasker=4.1.5
+  #- rmblast
+  - trf=4.09
+  - bedtools=2.30.0
+  - samtools=1.18
+  - htslib=1.18
+  - bcftools=1.18
+  - seqtk
+  - pysam
+  - pandas
+  - numba
+  - openssl
+  - make
