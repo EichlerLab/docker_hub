@@ -31,17 +31,15 @@ WORKDIR /opt/ncbi-cxx
 
 RUN ./cmake-configure --without-debug
 
-# RUN cd CMake-*/build && \
-#     cmake --build . -j4 --verbose && \
-#     cmake --install . --prefix ${NCBI_ROOT}
+RUN bash -lc 'set -euo pipefail; \
+  cd CMake-*/build; \
+  cmake --build . -j4 --verbose'
 
-RUN set -eux; \
-    cd CMake-*/build; \
-    (cmake --build . -j4 --verbose) 2>&1 | tee /tmp/ncbi_build.log; \
-    echo "---- LAST 200 LINES ----"; \
-    tail -n 200 /tmp/ncbi_build.log; \
-    echo "---- ERROR-LIKE LINES ----"; \
-    grep -nE "fatal error:|error:|undefined reference|collect2:|ld returned|killed" /tmp/ncbi_build.log | tail -n 80
+  
+RUN bash -lc 'set -euo pipefail; \
+  cd CMake-*/build; \
+  cmake --install . --prefix '"${NCBI_ROOT}"''
+
 
 ENV PATH=${NCBI_ROOT}/bin:${PATH}
 
