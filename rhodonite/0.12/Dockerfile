@@ -1,5 +1,5 @@
 # rhodonite
-FROM condaforge/mambaforge:24.11.0-0
+FROM continuumio/miniconda3:latest
 
 ARG ENV_NAME=rhodonite
 ENV DEBIAN_FRONTEND=noninteractive
