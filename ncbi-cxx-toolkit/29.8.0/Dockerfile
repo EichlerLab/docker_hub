@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libcurl4-openssl-dev \
     uuid-dev \
+    bash \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
@@ -29,16 +30,24 @@ RUN git clone --depth 1 \
 
 WORKDIR /opt/ncbi-cxx
 
-RUN ./cmake-configure --without-debug --with-projects=core;app/winmask
+RUN ./cmake-configure --without-debug
 
 RUN bash -lc 'set -euo pipefail; \
   cd CMake-*/build; \
-  cmake --build . -j1 --target windowmasker --verbose'
+  cmake -S /opt/ncbi-cxx/src -B . \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DNCBI_PTBCFG_ENABLE_TESTS=OFF \
+    -DNCBI_COMPONENT_DBAPI=OFF \
+    -DNCBI_COMPONENT_ftds14=OFF \
+    -DNCBI_COMPONENT_ODBC=OFF'
+
+RUN bash -lc 'set -euo pipefail; \
+  cd CMake-*/build; \
+  cmake --build . -j1'
 
 RUN bash -lc 'set -euo pipefail; \
   cd CMake-*/build; \
   cmake --install . --prefix '"${NCBI_ROOT}"''
-
 
 ENV PATH=${NCBI_ROOT}/bin:${PATH}
 
