@@ -33,22 +33,16 @@ RUN ./cmake-configure --without-debug
 
 RUN bash -lc 'set -euo pipefail; \
   cd CMake-*/build; \
-  cmake -DNCBI_COMPONENT_DBAPI=OFF \
-        -DNCBI_COMPONENT_ftds14=OFF \
-        -DNCBI_COMPONENT_ODBC=OFF \
-        -DNCBI_PTBCFG_ENABLE_TESTS=OFF \
-        ..'
+  cmake --build . -j2 --verbose'
 
-  
 RUN bash -lc 'set -euo pipefail; \
   cd CMake-*/build; \
-  cmake --build . -j4; \
   cmake --install . --prefix '"${NCBI_ROOT}"''
+
 
 ENV PATH=${NCBI_ROOT}/bin:${PATH}
 
-ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib
+ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib:${NCBI_ROOT}/lib64
 
 WORKDIR /app
 COPY ./software.list /app/
-
