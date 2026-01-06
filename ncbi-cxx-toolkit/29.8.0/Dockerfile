@@ -6,7 +6,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV NCBI_VERSION=29.8.0
 ENV NCBI_ROOT=/opt/ncbi
 
+
 RUN apt-get update && apt-get install -y \
+    gcc-12 g++-12 \
     build-essential \
     cmake \
     git \
@@ -35,7 +37,11 @@ RUN ./cmake-configure --without-debug
 RUN bash -lc 'set -euo pipefail; \
   cd CMake-*/build; \
   cmake -S /opt/ncbi-cxx/src -B . \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_COMPILER=gcc-12 \
+    -DCMAKE_CXX_COMPILER=g++-12 \
+    -DCMAKE_CXX_STANDARD=20 \
+    -DCMAKE_CXX_STANDARD_REQUIRED=ON \
+    -DCMAKE_CXX_FLAGS="-fcoroutines" \
     -DNCBI_PTBCFG_ENABLE_TESTS=OFF \
     -DNCBI_COMPONENT_DBAPI=OFF \
     -DNCBI_COMPONENT_ftds14=OFF \
