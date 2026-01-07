@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV NCBI_VERSION=29.8.0
+ENV NCBI_VERSION=27.0.0
 ENV NCBI_ROOT=/opt/ncbi
 
 RUN apt-get update -o Acquire::Retries=5 && apt-get install -y --no-install-recommends \
@@ -23,21 +23,14 @@ RUN apt-get update -o Acquire::Retries=5 && apt-get install -y --no-install-reco
     bash \
     && rm -rf /var/lib/apt/lists/*
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 && \
-    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100 && \
-    gcc --version && g++ --version
-
 WORKDIR /opt
 RUN git clone --depth 1 --branch release/${NCBI_VERSION} \
     https://github.com/ncbi/ncbi-cxx-toolkit-public.git ncbi-cxx
 
 WORKDIR /opt/ncbi-cxx
-ENV CC=gcc
-ENV CXX=g++
-ENV CXXFLAGS="-fcoroutines"
+ENV CXXFLAGS="-std=c++14"
 
-
-RUN ./cmake-configure --without-debug --with-projects=corelib && \
+RUN ./cmake-configure --without-debug --with-projects="core;app/winmask" && \
     cd CMake-*/build && \
     cmake --build . -j && \
     cmake --install . --prefix "${NCBI_ROOT}"
