@@ -31,7 +31,7 @@ ENV CXXFLAGS="-std=c++14"
 
 RUN ./cmake-configure --without-debug --with-projects="core;app/winmask" && \
     cd CMake-*/build && \
-    cmake --build . -j && \
+    cmake --build . -j 1 && \
     cmake --install .
 
 ENV PATH=${RELEASE_ROOT}/bin:${PATH}
