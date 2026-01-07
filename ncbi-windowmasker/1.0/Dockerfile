@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV NCBI_VERSION=27.0.0
-ENV NCBI_ROOT=/opt/ncbi
+ENV RELEASE_ROOT=/opt/ncbi-cxx/CMake-GCC1140-Release
 
 RUN apt-get update -o Acquire::Retries=5 && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -32,10 +32,10 @@ ENV CXXFLAGS="-std=c++14"
 RUN ./cmake-configure --without-debug --with-projects="core;app/winmask" && \
     cd CMake-*/build && \
     cmake --build . -j && \
-    cmake --install . --prefix "${NCBI_ROOT}"
+    cmake --install .
 
-ENV PATH=${NCBI_ROOT}/bin:${PATH}
-ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib:${NCBI_ROOT}/lib64:${LD_LIBRARY_PATH}
+ENV PATH=${RELEASE_ROOT}/bin:${PATH}
+ENV LD_LIBRARY_PATH=${RELEASE_ROOT}/lib:${LD_LIBRARY_PATH}
 
 WORKDIR /app
 COPY ./software.list /app/
