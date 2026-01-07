@@ -1,13 +1,12 @@
+# syntax=docker/dockerfile:1.4
 FROM ubuntu:22.04
-
-LABEL maintainer="Eichler Lab"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV NCBI_VERSION=29.8.0
 ENV NCBI_ROOT=/opt/ncbi
 
-
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -o Acquire::Retries=5 && apt-get install -y --no-install-recommends \
+    ca-certificates \
     gcc-12 g++-12 \
     build-essential \
     cmake \
@@ -24,40 +23,28 @@ RUN apt-get update && apt-get install -y \
     bash \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /opt
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 && \
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100 && \
+    gcc --version && g++ --version
 
-RUN git clone --depth 1 \
-    --branch release/${NCBI_VERSION} \
+WORKDIR /opt
+RUN git clone --depth 1 --branch release/${NCBI_VERSION} \
     https://github.com/ncbi/ncbi-cxx-toolkit-public.git ncbi-cxx
 
 WORKDIR /opt/ncbi-cxx
+ENV CC=gcc
+ENV CXX=g++
+ENV CXXFLAGS="-fcoroutines"
 
-RUN ./cmake-configure --without-debug
 
-RUN bash -lc 'set -euo pipefail; \
-  cd CMake-*/build; \
-  cmake -S /opt/ncbi-cxx/src -B . \
-    -DCMAKE_C_COMPILER=gcc-12 \
-    -DCMAKE_CXX_COMPILER=g++-12 \
-    -DCMAKE_CXX_STANDARD=20 \
-    -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-    -DCMAKE_CXX_FLAGS="-fcoroutines" \
-    -DNCBI_PTBCFG_ENABLE_TESTS=OFF \
-    -DNCBI_COMPONENT_DBAPI=OFF \
-    -DNCBI_COMPONENT_ftds14=OFF \
-    -DNCBI_COMPONENT_ODBC=OFF'
-
-RUN bash -lc 'set -euo pipefail; \
-  cd CMake-*/build; \
-  cmake --build . -j1'
-
-RUN bash -lc 'set -euo pipefail; \
-  cd CMake-*/build; \
-  cmake --install . --prefix '"${NCBI_ROOT}"''
+RUN ./cmake-configure --without-debug --with-projects=corelib && \
+    cd CMake-*/build && \
+    cmake --build . -j && \
+    cmake --install . --prefix "${NCBI_ROOT}"
 
 ENV PATH=${NCBI_ROOT}/bin:${PATH}
-
-ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib:${NCBI_ROOT}/lib64
+ENV LD_LIBRARY_PATH=${NCBI_ROOT}/lib:${NCBI_ROOT}/lib64:${LD_LIBRARY_PATH}
 
 WORKDIR /app
 COPY ./software.list /app/
+
