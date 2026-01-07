@@ -23,7 +23,7 @@ RUN apt-get update -o Acquire::Retries=5 && apt-get install -y --no-install-reco
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
-RUN git clone --depth 1 --branch release/${NCBI_VERSION} \
+RUN git clone --depth 1 --branch release-${NCBI_VERSION} \
     https://github.com/ncbi/ncbi-cxx-toolkit-public.git ncbi-cxx
 
 WORKDIR /opt/ncbi-cxx
