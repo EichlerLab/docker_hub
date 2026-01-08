@@ -2,13 +2,14 @@ FROM ubuntu:22.04
 
 LABEL maintainer="Eichler Lab"
 
-# build deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
     build-essential \
     g++ \
     make \
     git \
     libboost-all-dev \
+ && update-ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/sedef
