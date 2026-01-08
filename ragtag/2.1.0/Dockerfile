@@ -4,7 +4,7 @@ LABEL maintainer="Eichler Lab"
 
 WORKDIR /work
 
-RUN micromamba install -y -c conda-forge -c bioconda -p /opt/ragtag ragtag \
+RUN micromamba create -y -c conda-forge -c bioconda -p /opt/ragtag ragtag \
  && micromamba clean -a -y
 
 ENV PATH=/opt/ragtag/bin:${PATH}
