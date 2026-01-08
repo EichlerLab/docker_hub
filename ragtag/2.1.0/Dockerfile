@@ -2,6 +2,8 @@ FROM mambaorg/micromamba:1.5.10
 
 LABEL maintainer="Eichler Lab"
 
+USER root
+
 WORKDIR /work
 
 RUN micromamba create -y -c conda-forge -c bioconda -p /opt/ragtag ragtag \
