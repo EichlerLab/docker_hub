@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python-is-python3 \
     time \
     bc \
- && locale-gen en_US.UTF-8
+ && locale-gen en_US.UTF-8 \
  && update-ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
