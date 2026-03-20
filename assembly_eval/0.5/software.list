@@ -1,0 +1,8 @@
+samtools=1.23
+minimap2=2.30
+bedtools=2.31.1
+winnowmap=2.03
+meryl=1.4.1
+rustybam=0.1.34
+repeatmasker=4.2.2
+seqkit=1.23
