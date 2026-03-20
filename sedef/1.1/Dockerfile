@@ -27,3 +27,4 @@ ENV PATH="/opt/sedef:${PATH}"
 
 WORKDIR /app
 COPY ./software.list /app/
+
