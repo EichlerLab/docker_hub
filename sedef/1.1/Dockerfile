@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     libboost-all-dev \
     samtools \
+    rsync \
     parallel \
     python3 \
     python3-pip \
