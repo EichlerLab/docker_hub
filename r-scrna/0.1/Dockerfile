@@ -38,4 +38,3 @@ RUN Rscript ./install_packages.R
 RUN mkdir -p /app/ && echo -e "r=4.1.2" > /app/software.list
 
 
-
