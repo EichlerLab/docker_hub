@@ -1,0 +1,5 @@
+name: cenmap
+channels:
+  - bioconda
+dependencies:
+  - cenmap=1.2.0
