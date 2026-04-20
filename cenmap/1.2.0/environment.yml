@@ -1,5 +1,7 @@
 name: cenmap
 channels:
+  - conda-forge
   - bioconda
+  - defaults
 dependencies:
   - cenmap=1.2.0
