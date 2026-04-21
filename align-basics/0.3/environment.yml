@@ -1,0 +1,16 @@
+name: align-basics
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - seqtk
+  - samtools
+  - minimap2
+  - bwa
+  - pbmm2
+  - bedtools
+  - pbtk
+  - winnowmap
+  - sambamba
+prefix: /opt/conda/envs/align-basics
