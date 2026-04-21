@@ -27,3 +27,4 @@ RUN git clone https://github.com/youngjun0827/samtools-fqidx-comment.git /opt/sa
 RUN mkdir -p /app/
 
 COPY ./software.list /app/
+
