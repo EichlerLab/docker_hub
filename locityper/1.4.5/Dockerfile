@@ -21,7 +21,7 @@ RUN apt-get update \
         zsh \
         # Locityper dependency
         jellyfish clang libclang-dev \
-        ca-certificates gnupg
+        ca-certificates gnupg parallel
 
 # Install Google Cloud CLI
 RUN mkdir -p /usr/share/keyrings && \
