@@ -1,0 +1,16 @@
+name: locityper
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python
+  - locityper
+  - truvari
+  - tabix
+  - bcftools
+  - samtools
+  - bedtools
+  - google-cloud-sdk
+  - snakemake
+prefix: /opt/conda/envs/locityper
