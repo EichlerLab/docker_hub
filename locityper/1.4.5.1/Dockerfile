@@ -5,7 +5,6 @@ USER root
 COPY ./environment.yml /
 
 RUN apt-get update && \
-    apt-get full-upgrade -y && \
     apt-get install -y --no-install-recommends \
     wget \
     curl \
