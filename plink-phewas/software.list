@@ -1,0 +1,5 @@
+python=3.12.13
+pandas=3.0.3
+numpy=1.26.4
+phetk==0.2.12
+plink2=2.0.0

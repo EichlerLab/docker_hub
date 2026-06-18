@@ -1,0 +1,12 @@
+name: plink-phewas
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pandas
+  - numpy<2.0
+  - plink2
+  - pip:
+    - phetk
+prefix: /opt/conda/envs/plink-phewas
