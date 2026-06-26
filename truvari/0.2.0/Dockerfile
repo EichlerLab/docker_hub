@@ -2,6 +2,8 @@ FROM  us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:latest
 
 ARG SAMTOOLS_VER=1.22
 
+ARG PREFIX=/usr/local
+
 USER root
 
 ENV PIP_USER=false
