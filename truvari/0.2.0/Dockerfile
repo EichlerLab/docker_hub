@@ -4,6 +4,10 @@ LABEL version="0.2.1"
 
 ARG SAMTOOLS_VER=1.22
 
+ARG BCFTOOLS_VER=1.22
+
+ARG HTSLIB_VER=1.22
+
 ARG PREFIX=/usr/local
 
 USER root
@@ -56,6 +60,22 @@ RUN mkdir -p /repos &&  cd /repos \
     &&  curl -L https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VER}/samtools-${SAMTOOLS_VER}.tar.bz2 | \
         tar --no-same-owner -jxvf - \
     &&  cd /repos/samtools-${SAMTOOLS_VER} \
+    &&  ./configure --enable-libcurl \
+    &&  make \
+    &&  make install prefix=${PREFIX}
+
+RUN mkdir -p /repos &&  cd /repos \
+    &&  curl -L https://github.com/samtools/bcftools/releases/download/${BCFTOOLS_VER}/bcftools-${BCFTOOLS_VER}.tar.bz2 | \
+        tar --no-same-owner -jxvf - \
+    &&  cd /repos/bcftools-${BCFTOOLS_VER} \
+    &&  ./configure --enable-libcurl \
+    &&  make \
+    &&  make install prefix=${PREFIX}
+
+RUN mkdir -p /repos &&  cd /repos \
+    &&  curl -L https://github.com/samtools/htslib/releases/download/${HTSLIB_VER}/htslib-${HTSLIB_VER}.tar.bz2 | \
+        tar --no-same-owner -jxvf - \
+    &&  cd /repos/htslib-${HTSLIB_VER} \
     &&  ./configure --enable-libcurl \
     &&  make \
     &&  make install prefix=${PREFIX}
