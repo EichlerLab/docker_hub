@@ -1,5 +1,7 @@
 FROM  us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:latest
 
+LABEL version="0.2.1"
+
 ARG SAMTOOLS_VER=1.22
 
 ARG PREFIX=/usr/local
