@@ -1,5 +1,7 @@
 FROM  us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:latest
 
+ARG SAMTOOLS_VER=1.22
+
 USER root
 
 ENV PIP_USER=false
@@ -9,6 +11,8 @@ RUN apt-get update && \
     wget \
     curl \
     bc \
+    gnupg \
+    parallel \
     unzip \
     bzip2 \
     less \
@@ -18,8 +22,8 @@ RUN apt-get update && \
     build-essential \
     cmake \
     clang \
-    bcftools \
-    samtools \
+    g++ \
+    ca-certificates \
     bedtools \
     libclang-dev \
     libncurses-dev \
@@ -44,7 +48,13 @@ RUN pip3 -V \
   && pip3 install --upgrade pip \
   && pip3 install --upgrade Truvari
 
-
+RUN mkdir -p /repos &&  cd /repos \
+    &&  curl -L https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VER}/samtools-${SAMTOOLS_VER}.tar.bz2 | \
+        tar --no-same-owner -jxvf - \
+    &&  cd /repos/samtools-${SAMTOOLS_VER} \
+    &&  ./configure --enable-libcurl \
+    &&  make \
+    &&  make install prefix=${PREFIX}
 
 ENV USER=jupyter
 USER $USER
