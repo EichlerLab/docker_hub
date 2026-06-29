@@ -8,6 +8,9 @@ dependencies:
   - numpy<2.0
   - plink2
   - bcftools
+  - r-base
+  - r-susier
+  - r-pgenlibr
   - pip:
     - phetk
 prefix: /opt/conda/envs/plink-phewas

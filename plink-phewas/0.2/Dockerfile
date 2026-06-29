@@ -8,7 +8,7 @@ RUN conda env create -f /environment.yml && conda clean -a
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates curl gnupg \
+    ca-certificates curl gnupg libxt6 \
     && mkdir -p /usr/share/keyrings && \
     curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
     | gpg --dearmor -o /usr/share/keyrings/google-cloud-cli.gpg && \
