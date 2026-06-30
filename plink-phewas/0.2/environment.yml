@@ -11,6 +11,7 @@ dependencies:
   - r-base
   - r-susier
   - r-pgenlibr
+  - r-rfast
   - pip:
     - phetk
 prefix: /opt/conda/envs/plink-phewas
