@@ -1,0 +1,10 @@
+name: multisusie
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pip:
+    - git+https://github.com/jordanero/MultiSuSiE.git
+  - bcftools
+  - statsmodels
